@@ -52,7 +52,7 @@ public class Shooter {
                 }
                 turretSpin.set(ControlMode.PercentOutput, controllerTurn);
             }
-            System.out.println(controllerTurn);
+            //System.out.println(controllerTurn);
 
         } else if (control.getName().equals("Logitech Extreme 3D")) {
 
@@ -70,7 +70,7 @@ public class Shooter {
                 }
                 turretSpin.set(ControlMode.PercentOutput, controllerTurn);
             }
-            System.out.println(controllerTurn);
+            //System.out.println(controllerTurn);
         } else {
             controllerShoot = 0;
             controllerTurn = 0;
@@ -115,9 +115,9 @@ public class Shooter {
             }
 
         }
-        //turretFire1.set(ControlMode.PercentOutput, controllerShoot/5);
+        turretFire1.set(ControlMode.PercentOutput, controllerShoot/5);
         turretFire2.set(ControlMode.PercentOutput, controllerShoot);
-        System.out.println(controllerShoot);
+       // System.out.println(controllerShoot);
         SmartDashboard.putNumber("targetPos", targetPos);
         SmartDashboard.putNumber("sensorPos", sensorPos);
     }

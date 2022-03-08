@@ -34,7 +34,7 @@ public class Robot extends TimedRobot {
     tachanka.driveInit();
     climb.climbInit();
     shooter.shooterInit();
-   // pickup.pickupInit();
+    pickup.pickupInit();
   }
 
   @Override
@@ -42,7 +42,7 @@ public class Robot extends TimedRobot {
     tachanka.drivePeriodic();
     shooter.shooterPeriodic();
     limeVision.periodic();
-   // pickup.pickupPeriodic();
+    pickup.pickupPeriodic();
    // navex.navexPeriodic();
    climb.climbPeriodic();
   }

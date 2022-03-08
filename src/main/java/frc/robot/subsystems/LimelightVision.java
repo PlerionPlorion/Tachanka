@@ -20,7 +20,7 @@ public class LimelightVision {
     public static Boolean TargetDetected;
     public static Boolean enableCam;
     CameraServer cameraServer;
-
+    
     public LimelightVision() {
         NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
         tvEnt = table.getEntry("tv");
