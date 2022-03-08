@@ -76,7 +76,7 @@ public class Pickup {
        // pickBag.set(ControlMode.PercentOutput, controllerArm);
         elevBag.set(ControlMode.PercentOutput, controllerUp);
         armBag.set(ControlMode.PercentOutput, controllerUp);
-
+            //Git test
 
     }
 }
