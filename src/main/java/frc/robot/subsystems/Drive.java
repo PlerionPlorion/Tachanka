@@ -3,11 +3,7 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.motorcontrol.MotorController;
-//import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
-import edu.wpi.first.wpilibj.motorcontrol.Talon;
-//import edu.wpi.first.wpilibj.motorcontrol.Talon;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.Timer;
@@ -65,7 +61,7 @@ public class Drive {
     public void drivePeriodic() {
 
         if (joystick.getName().equals("Controller (XBOX 360 For Windows)")) {
-            controllerMove = joystick.getRawAxis(5);
+            controllerMove = joystick.getRawAxis(1);
             controllerTurn = joystick.getRawAxis(4);
             if (joystick.getRawButtonPressed(6)) {
                 xboxSpeed = xboxSpeed + 10;
@@ -87,7 +83,9 @@ public class Drive {
         } else if (joystick.getName().equals("Logitech Extreme 3D")) {
             controllerMove = joystick.getY();
             controllerTurn = joystick.getZ();
+            if(joystick.getRawButtonPressed(11)) {
             multiplier = (-joystick.getRawAxis(3) + 1) / 2;
+            }
             controllerMove = controllerMove * multiplier;
             controllerTurn = controllerTurn * multiplier;
             SmartDashboard.putNumber("Speed", multiplier * 100);

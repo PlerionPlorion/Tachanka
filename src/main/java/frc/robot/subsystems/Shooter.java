@@ -63,7 +63,9 @@ public class Shooter {
             if (counter % 2 == 0) {
 
             } else {
+                if(control.getRawButton(12)) {
                 controllerShoot = (-control.getRawAxis(3) + 1) / 2;
+                }
                 controllerTurn = control.getZ();
                 if (Math.abs(controllerTurn) < 0.1) {
                     controllerTurn = 0;
@@ -81,11 +83,11 @@ public class Shooter {
             sensorPos = -turretSpin.getSelectedSensorPosition() * (360.0 / 4096.0) / 10.66;
             if (table.getEntry("tv").getDouble(0) > 0) {
                 targetPos = sensorPos + visionX;
-                if (targetPos > 270) {
-                    targetPos = 270;
+                if (targetPos > 170) {
+                    targetPos = 170;
                 }
-                if (targetPos < -270) {
-                    targetPos = -270;
+                if (targetPos < -170) {
+                    targetPos = -170;
                 }
                 targetPos *= 10.66 * (4096.0 / 360.0);
             }
@@ -115,10 +117,13 @@ public class Shooter {
             }
 
         }
-        turretFire1.set(ControlMode.PercentOutput, controllerShoot/5);
-        turretFire2.set(ControlMode.PercentOutput, controllerShoot);
-       // System.out.println(controllerShoot);
+        turretFire1.set(ControlMode.PercentOutput, ((controllerShoot/100)*60));
+        turretFire2.set(ControlMode.PercentOutput, ((controllerShoot/100)*50));
+        System.out.println(controllerShoot);
         SmartDashboard.putNumber("targetPos", targetPos);
         SmartDashboard.putNumber("sensorPos", sensorPos);
     }
 }
+//6 top
+//5 bottom
+//ratio

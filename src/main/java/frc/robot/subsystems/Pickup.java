@@ -9,13 +9,14 @@ import edu.wpi.first.wpilibj.Joystick;
 public class Pickup {
 
     private Joystick pickup;
- //   DigitalInput limSwitch = new DigitalInput(0);
+   DigitalInput limSwitch = new DigitalInput(0);
     VictorSPX elevBag = new VictorSPX(9);
     VictorSPX armBag = new VictorSPX(10);
     VictorSPX pickBag = new VictorSPX(11);
     double Speed = 0;
     double controllerArm = -0.5;
-    double controllerUp = 0;
+    double controllerElevUp = 0;
+    double controllerArmBag = 0;
     int counter = 0;
     
     public void pickupInit() {
@@ -25,7 +26,7 @@ public class Pickup {
     }
 
     public void pickupPeriodic() {
-       // System.out.println(limSwitch.get());
+      //  System.out.println(limSwitch.get());
         if (pickup.getName().equals("Controller (XBOX 360 For Windows)")) {
             if (pickup.getRawButtonPressed(6)) {
                 Speed = Speed + 10;
@@ -40,9 +41,9 @@ public class Pickup {
                 Speed = 10;
             }
             if (pickup.getPOV() == 0) {
-                controllerUp = Speed;
+                controllerElevUp = Speed;
             } if (pickup.getPOV() == 180) {
-                controllerUp = -Speed;
+                controllerElevUp = -Speed;
             }
 
             if (pickup.getRawButtonPressed(1)) {
@@ -50,17 +51,16 @@ public class Pickup {
 
             }
         } else if (pickup.getName().equals("Logitech Extreme 3D")) {
-            Speed = (-pickup.getRawAxis(3) + 1) / 2;
-            if (Speed > 1) {
-                Speed = 1;
-            }
-            if (Speed < 0.1) {
-                Speed = 0.05;
-            }
             if (pickup.getPOV() == 0) {
-                controllerUp = Speed;
+                controllerElevUp = 1;
+                controllerArmBag = 0.4;
             } if (pickup.getPOV() == 180) {
-                controllerUp = -Speed;
+                controllerElevUp = -1;
+                controllerArmBag = -0.4;
+            }
+            if(pickup.getPOV() != 0 && pickup.getPOV() != 180) {
+                controllerElevUp = 0;
+                controllerArmBag = 0;
             }
             if (pickup.getRawButtonPressed(1)) {
                 controllerArm *= -1;
@@ -68,15 +68,15 @@ public class Pickup {
             }
         }
         // if(limSwitch.get() == true) {
-        //     controllerUp = Math.min(controllerUp, 0);
+        //     controllerElevUp = Math.min(controllerElevUp, 0);
         // }
         // if(limSwitch.get() == false) {
-        //     controllerUp = Math.max(controllerUp, -1);
+        //     controllerElevUp = Math.max(controllerElevUp, -1);
         // }
        // pickBag.set(ControlMode.PercentOutput, controllerArm);
-        elevBag.set(ControlMode.PercentOutput, controllerUp);
-        armBag.set(ControlMode.PercentOutput, controllerUp);
-            //Git test
+    elevBag.set(ControlMode.PercentOutput, controllerElevUp);
+   armBag.set(ControlMode.PercentOutput, controllerArmBag);
+            
 
     }
 }

@@ -43,7 +43,7 @@ public class Robot extends TimedRobot {
     shooter.shooterPeriodic();
     limeVision.periodic();
     pickup.pickupPeriodic();
-   // navex.navexPeriodic();
+    navex.navexPeriodic();
    climb.climbPeriodic();
   }
 
