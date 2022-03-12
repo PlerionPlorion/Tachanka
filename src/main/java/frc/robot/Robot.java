@@ -17,7 +17,6 @@ public class Robot extends TimedRobot {
   LimelightVision limeVision = new LimelightVision();
   Pickup pickup = new Pickup();
   Climb climb = new Climb();
-
   @Override
   public void robotInit() {
     vision.init();
@@ -43,7 +42,7 @@ public class Robot extends TimedRobot {
     shooter.shooterPeriodic();
     limeVision.periodic();
     pickup.pickupPeriodic();
-    navex.navexPeriodic();
+    //frc.robot.subsystems.navex.navexPeriodic();
    climb.climbPeriodic();
   }
 
