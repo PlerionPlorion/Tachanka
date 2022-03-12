@@ -37,10 +37,10 @@ public class Drive {
     }
 
     public void driveInit() {
-
+        timer.start();
         leftDrive.setInverted(true);
         joystick = new Joystick(0);
-
+        lastTime = 0;
     }
 
     // Define
@@ -52,11 +52,18 @@ public class Drive {
     Timer timer = new Timer();
     double controllerTurn = 0;
     double controllerMove = 0;
-
+    double constant = 0.05;
+    double currentSpeed = 0;
+    double dt = 0;
+    double lastTime = 0;
+    double Time = 0;
     public void tank() {
-       
+
         tachanka.tankDrive(leftMotors, rightMotors);
         // System.out.println(leftMotors + " " + rightMotors);
+    }
+    public double interpolate(double a, double b, double y) {
+        return (1-y)*a+y*b;
     }
     public void drivePeriodic() {
 
@@ -104,9 +111,13 @@ public class Drive {
         if (Math.abs(controllerTurn) < 0.1) {
             controllerTurn = 0;
         }
+       Time = timer.get();
+       dt = Time - lastTime;
+       lastTime = Time;
         // setting motors
-        leftMotors = controllerMove - controllerTurn;
-        rightMotors = controllerMove + controllerTurn;
+        currentSpeed = interpolate(controllerMove, currentSpeed, Math.pow(constant, dt));
+        leftMotors = currentSpeed - (controllerTurn/2);
+        rightMotors = currentSpeed + (controllerTurn/2);
         // leftMotors = leftMotors * Math.abs(joystick.getRawAxis(3));
 
         tank();

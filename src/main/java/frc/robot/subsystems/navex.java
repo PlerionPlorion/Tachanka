@@ -21,8 +21,8 @@ public class navex {
 
     }
    public static void navexPeriodic() {
-    SmartDashboard.putBoolean(  "IMU_Connected",        navex.isConnected());
-    SmartDashboard.putBoolean(  "IMU_IsCalibrating",    navex.isCalibrating());
+ //   SmartDashboard.putBoolean(  "IMU_Connected",        navex.isConnected());
+ //   SmartDashboard.putBoolean(  "IMU_IsCalibrating",    navex.isCalibrating());
     SmartDashboard.putNumber(   "IMU_Yaw",              navex.getYaw());
     SmartDashboard.putNumber(   "IMU_Pitch",            navex.getPitch());
     SmartDashboard.putNumber(   "IMU_Roll",             navex.getRoll());
