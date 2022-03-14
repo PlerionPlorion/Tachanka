@@ -29,16 +29,11 @@ public class LimelightVision {
         taEnt = table.getEntry("ta");
         TargetPosition = new Vector(0, 0);
         TargetDetected = false;
-        enableCam = false;
+        enableCam = true;
     }
 
     public void periodic() {
         NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
-        if (enableCam) {
-            table.getEntry("ledMode").setNumber(1);
-        } else {
-            table.getEntry("ledMode").setNumber(0);
-        }
         tvEnt = table.getEntry("tv");
         txEnt = table.getEntry("tx");
         tyEnt = table.getEntry("ty");

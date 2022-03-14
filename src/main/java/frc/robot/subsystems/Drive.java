@@ -30,7 +30,7 @@ public class Drive {
     WPI_TalonFX rightBack = new WPI_TalonFX(4);
     MotorControllerGroup leftDrive = new MotorControllerGroup(leftFront, leftBack);
     MotorControllerGroup rightDrive = new MotorControllerGroup(rightFront, rightBack);
-    DifferentialDrive m_drive;
+    
 
     public Drive() {
         tachanka = new DifferentialDrive(leftDrive, rightDrive);
@@ -135,7 +135,10 @@ public class Drive {
         leftMotors = 0.745;
         rightMotors = -0.745;
     }
-
+    public void straight(){
+        leftMotors = -0.5;
+        rightMotors = -0.5;
+    }
     public void stop() {
         leftMotors = 0;
         rightMotors = 0;

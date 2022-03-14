@@ -22,7 +22,7 @@ public class Pickup {
     int counter = 1;
 
     public void pickupInit() {
-
+        counter = 1;
         pickup = new Joystick(1);
 
     }
@@ -80,11 +80,11 @@ public class Pickup {
 
 
                     timer.start();
-                    controllerArm = -0.15;
+                    controllerArm = -0.4;
 
                 
                 } else {
-                    controllerArm = 0.3;
+                    controllerArm = 0.5;
 
                 }
                 if(timer.get() > 1) {
@@ -108,7 +108,7 @@ public class Pickup {
             controllerArm = 0;
     }
     }
-        System.out.println(counter);
+        //System.out.println(controllerArm);
         pickBag.set(ControlMode.PercentOutput, controllerArm);
         elevBag.set(ControlMode.PercentOutput, controllerElevUp);
         armBag.set(ControlMode.PercentOutput, controllerArmBag);
