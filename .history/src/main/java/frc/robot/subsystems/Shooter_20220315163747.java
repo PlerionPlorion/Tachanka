@@ -51,7 +51,7 @@ public class Shooter {
         double ty = table.getEntry("ty").getDouble(0);
         double m = (targetHeight - limeHeight) / Math.tan(limeAngle+ty);
         Vector relTargetPosition = new Vector(tx, m, true);
-        double limeAngle = -(turretSpin.getSelectedSensorPosition() / 777.777) * 180 / Math.PI;
+        double limeAngle = -turretSpin.getSelectedSensorPosition() / 777 / Math.PI;
         Vector limePosition = new Vector(limeAngle, limeRadius, true);
         return relTargetPosition.addVector(limePosition);
     }

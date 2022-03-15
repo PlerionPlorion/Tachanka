@@ -13,10 +13,6 @@ public class Shooter {
     private Joystick control;
     final int limeOff = 1;
     final int limeOn = 3;
-    final double limeAngle = 0.401425728; // radians
-    final double limeRadius = 8; // inches
-    final double limeHeight = 8; // inches
-    final double targetHeight = 104; // inches
     Timer debounce = new Timer();
     Timer turretY = new Timer();
     Timer turretX = new Timer();
@@ -45,15 +41,6 @@ public class Shooter {
     double degrees = 0;
     public void limeDisable() {
         table.getEntry("ledMode").setNumber(limeOff);
-    }
-    public Vector getTargetPosition () {
-        double tx = table.getEntry("tx").getDouble(0);
-        double ty = table.getEntry("ty").getDouble(0);
-        double m = (targetHeight - limeHeight) / Math.tan(limeAngle+ty);
-        Vector relTargetPosition = new Vector(tx, m, true);
-        double limeAngle = -(turretSpin.getSelectedSensorPosition() / 777.777) * 180 / Math.PI;
-        Vector limePosition = new Vector(limeAngle, limeRadius, true);
-        return relTargetPosition.addVector(limePosition);
     }
     public void shooterPeriodic() {
         degrees = (turretSpin.getSelectedSensorPosition(1));
@@ -126,13 +113,12 @@ public class Shooter {
             if (table.getEntry("tv").getDouble(0) > 0) {
                 turretX.start();
                 turretX.reset();
-                // if (Math.abs(visionX) < 5) {
-                //     visionX = 0;
-                // }
-                // targetPos = sensorPos + visionX;
-                // targetPos = targetPos * 777;
-                // targetPos = 70000;
-                targetPos = getTargetPosition().getAngleDeg() * 777.777;
+                if (Math.abs(visionX) < 5) {
+                    visionX = 0;
+                }
+                targetPos = sensorPos + visionX;
+                targetPos = targetPos * 777 * 1.10;
+                targetPos = 70000;
             } else {
                 if(turretX.get() > 2) {
                     targetPos = 0;

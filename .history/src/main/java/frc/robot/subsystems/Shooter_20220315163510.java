@@ -51,7 +51,7 @@ public class Shooter {
         double ty = table.getEntry("ty").getDouble(0);
         double m = (targetHeight - limeHeight) / Math.tan(limeAngle+ty);
         Vector relTargetPosition = new Vector(tx, m, true);
-        double limeAngle = -(turretSpin.getSelectedSensorPosition() / 777.777) * 180 / Math.PI;
+        double limeAngle = -turretSpin.getSelectedSensorPosition() / 777 / Math.PI;
         Vector limePosition = new Vector(limeAngle, limeRadius, true);
         return relTargetPosition.addVector(limePosition);
     }
@@ -126,13 +126,12 @@ public class Shooter {
             if (table.getEntry("tv").getDouble(0) > 0) {
                 turretX.start();
                 turretX.reset();
-                // if (Math.abs(visionX) < 5) {
-                //     visionX = 0;
-                // }
-                // targetPos = sensorPos + visionX;
-                // targetPos = targetPos * 777;
-                // targetPos = 70000;
-                targetPos = getTargetPosition().getAngleDeg() * 777.777;
+                if (Math.abs(visionX) < 5) {
+                    visionX = 0;
+                }
+                targetPos = sensorPos + visionX;
+                targetPos = targetPos * 777;
+                targetPos = 70000;
             } else {
                 if(turretX.get() > 2) {
                     targetPos = 0;
