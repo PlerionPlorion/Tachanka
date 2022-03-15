@@ -9,25 +9,17 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Climb {
     TalonFX climbMotor = new TalonFX(1);
-    Timer timer = new Timer();
+
     private Joystick climb;
     double controllerClimb = 0;
     double degrees = 0;
     double inches = 37;
-    double autoClimb = 0;
-    boolean climbB = false;
+    
     public void climbInit() {
         climb = new Joystick(1);
-        timer.reset();
     }
 
-    public void climbUp() {
-        autoClimb = 0.3;
-    }
 
-    public void climbDown() {
-        autoClimb = -0.3;
-    }
 
     public void climbPeriodic() {
 
@@ -36,39 +28,15 @@ public class Climb {
         } else if (climb.getName().equals("Logitech Extreme 3D")) {
             controllerClimb = climb.getRawAxis(1);
             controllerClimb *= -1;
-            if (climb.getRawButtonPressed(3)) {
-                climbB = true;
 
-
-            }
-            if(climb.getRawButtonReleased(3)) {
-                climbB = false;
-                timer.stop();
-             
-            }
         } else {
             System.out.println("This controller is not supported");
         }
-        if(climbB == true) {
-            timer.start();
-            if (timer.get() < 4) {
-                autoClimb = 0.3;
-                
-            } 
-            if (timer.get() > 4) {
-                autoClimb = -0.3;
-            } if (timer.get() > 8) {
-                autoClimb = 0.3;
-            } if (timer.get() > 12) {
-                autoClimb = -0.3;
-            } if (timer.get() > 16) {
-                autoClimb = 0.3;
-            } if (timer.get() > 20) {
-                autoClimb = -0.3;
-            }
-            climbMotor.set(ControlMode.PercentOutput, autoClimb);
-        } else {
+        if(climb.getRawButtonPressed(6)){
+            
             climbMotor.set(ControlMode.PercentOutput, controllerClimb);
+        } else {
+            controllerClimb = 0;
         }
         //System.out.println(timer.get());
         degrees = (climbMotor.getSelectedSensorPosition(1));

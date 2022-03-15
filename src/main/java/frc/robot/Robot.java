@@ -17,7 +17,7 @@ public class Robot extends TimedRobot {
   LimelightVision limeVision = new LimelightVision();
   Pickup pickup = new Pickup();
   Climb climb = new Climb();
-  navex navex = new navex();
+  //navex navex = new navex();
   Auto autonomous = new Auto();
   @Override
   public void disabledPeriodic () {

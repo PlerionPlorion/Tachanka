@@ -14,10 +14,11 @@ public class Shooter {
     final int limeOff = 1;
     final int limeOn = 3;
     Timer debounce = new Timer();
-    Timer turret = new Timer();
+    Timer turretY = new Timer();
+    Timer turretX = new Timer();
     TalonFX turretSpin = new TalonFX(0);
-    TalonFX turretFire1 = new TalonFX(20);
-    TalonFX turretFire2 = new TalonFX(19);
+    TalonFX bottomShoot = new TalonFX(20);
+    TalonFX topShoot = new TalonFX(19);
     Orchestra Rick = new Orchestra();
     NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
 
@@ -25,7 +26,7 @@ public class Shooter {
         control = new Joystick(1);
         // Rick.loadMusic("Rocky.chrp");
         Rick.addInstrument(turretSpin);
-        turret.reset();
+        turretY.reset();
     }
 
     // Define
@@ -104,35 +105,38 @@ public class Shooter {
             controllerTurn = 0;
             System.out.println("This controller is not supported");
         }
+        sensorPos = -turretSpin.getSelectedSensorPosition() / 777;
+        System.out.println(sensorPos*777);
         if (counter % 2 == 0) {
             table.getEntry("ledMode").setNumber(limeOn);
             visionX = table.getEntry("tx").getDouble(0);
-            sensorPos = -turretSpin.getSelectedSensorPosition() * (360.0 / 4096.0) / 10.66;
             if (table.getEntry("tv").getDouble(0) > 0) {
+                turretX.start();
+                turretX.reset();
+                if (Math.abs(visionX) < 5) {
+                    visionX = 0;
+                }
                 targetPos = sensorPos + visionX;
-                if (targetPos > 170) {
-                    targetPos = 170;
+                targetPos = targetPos * 777 * 1.10;
+                
+            } else {
+                if(turretX.get() > 2) {
+                    targetPos = 0;
                 }
-                if (targetPos < -170) {
-                    targetPos = -170;
-                }
-                System.out.println(targetPos);
-                targetPos *= 10.66 * (4096.0 / 360.0);
-                turretSpin.set(ControlMode.Position, targetPos);
-
             }
+            turretSpin.set(ControlMode.Position, targetPos);
 
             visionY = table.getEntry("ty").getDouble(0);
             if (table.getEntry("ty").getDouble(0) > 4 && table.getEntry("ty").getDouble(0) < 7) {
-                turret.start();
-                turret.reset();
+                turretY.start();
+                turretY.reset();
                 controllerShoot = 0.5;
                 // System.out.println(targetPos);
 
             } else {
-                if (turret.get() > 2) {
+                if (turretY.get() > 2) {
                     controllerShoot = 0;
-                    turret.stop();
+                    turretY.stop();
                 }
             }
 
@@ -152,8 +156,8 @@ public class Shooter {
         }
 
         // System.out.println(counter);
-        turretFire1.set(ControlMode.PercentOutput, ((controllerShoot / 100) * 60));
-        turretFire2.set(ControlMode.PercentOutput, ((controllerShoot / 100) * 50));
+        bottomShoot.set(ControlMode.PercentOutput, ((controllerShoot / 100) * 60));
+        topShoot.set(ControlMode.PercentOutput, ((controllerShoot / 100) * 40));
         // System.out.println(controllerShoot);
         SmartDashboard.putNumber("targetPos", targetPos);
         SmartDashboard.putNumber("sensorPos", sensorPos);

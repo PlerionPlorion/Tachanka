@@ -55,7 +55,7 @@ public class Pickup {
 
             }
         } else if (pickup.getName().equals("Logitech Extreme 3D")) {
-            if (pickup.getPOV() == 0) {
+            if (pickup.getPOV() == 90) {
                 controllerElevUp = 1;
                 controllerArmBag = 0.4;
             }
@@ -63,7 +63,7 @@ public class Pickup {
                 controllerElevUp = -1;
                 controllerArmBag = -0.4;
             }
-            if (pickup.getPOV() != 0 && pickup.getPOV() != 180) {
+            if (pickup.getPOV() != 90 && pickup.getPOV() != 180) {
                 controllerElevUp = 0;
                 controllerArmBag = 0;
             }
