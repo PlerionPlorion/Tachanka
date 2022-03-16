@@ -16,7 +16,7 @@ public class Shooter {
     final double limeAngle = 0.401425728; // radians
     final double limeRadius = 8; // inches
     final double limeHeight = 8; // inches
-    final double targetHeight = 104; // tester stick hight = 58; // inches
+    final double targetHeight = 58; // Real hight = 104; // inches
     Timer debounce = new Timer();
     Timer turretY = new Timer();
     Timer turretX = new Timer();
@@ -29,11 +29,9 @@ public class Shooter {
     double dt = 0;
     double lastTime = 0;
     double Time = 0;
-    double constant = 0.05;
+    double constant = 0;
 
     public void shooterInit() {
-        timer.start();
-        timer.reset();
         control = new Joystick(1);
         Rick.loadMusic("Rocky.chrp");
         Rick.addInstrument(turretSpin);
@@ -153,19 +151,19 @@ public class Shooter {
                 // targetPos = sensorPos + visionX;
                 // targetPos = targetPos * 777;
                 // targetPos = 70000;
-                Vector newTargetposition = getTargetPosition();
-                // System.out.println(targetPosition);
-                // targetPos = (newTargetposition.getAngleDeg()) * 777.777;
-                System.out.println(newTargetposition.getAngleDeg() * 777.777);
-                targetPos = interpolate(newTargetposition.getAngleDeg() * 777.777, targetPos, Math.pow(constant, dt));
             } else {
                 if (turretX.get() > 2) {
-                    // targetPos = 0;
+                    targetPos = 0;
                 }
             }
             Time = timer.get();
             dt = Time - lastTime;
             lastTime = Time;
+            Vector newTargetposition = getTargetPosition();
+            // System.out.println(targetPosition);
+            // targetPos = (newTargetposition.getAngleDeg()) * 777.777;
+            System.out.println(targetPos);
+            targetPos = interpolate(newTargetposition.getAngleDeg() * 777.777, targetPos, Math.pow(constant, dt));
             turretSpin.set(ControlMode.Position, targetPos);
 
             visionY = table.getEntry("ty").getDouble(0);

@@ -16,38 +16,23 @@ public class Shooter {
     final double limeAngle = 0.401425728; // radians
     final double limeRadius = 8; // inches
     final double limeHeight = 8; // inches
-    final double targetHeight = 104; // tester stick hight = 58; // inches
+    final double targetHeight = 58; // Real hight = 104; // inches
     Timer debounce = new Timer();
     Timer turretY = new Timer();
     Timer turretX = new Timer();
-    Timer timer = new Timer();
     TalonFX turretSpin = new TalonFX(0);
     TalonFX bottomShoot = new TalonFX(20);
     TalonFX topShoot = new TalonFX(19);
     Orchestra Rick = new Orchestra();
     NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
-    double dt = 0;
-    double lastTime = 0;
-    double Time = 0;
-    double constant = 0.05;
 
     public void shooterInit() {
-        timer.start();
-        timer.reset();
         control = new Joystick(1);
-        Rick.loadMusic("Rocky.chrp");
+         Rick.loadMusic("Rocky.chrp");
         Rick.addInstrument(turretSpin);
         Rick.addInstrument(bottomShoot);
         Rick.addInstrument(topShoot);
         turretY.reset();
-        dt = 0;
-        lastTime = 0;
-        Time = 0;
-
-    }
-
-    public double interpolate(double a, double b, double y) {
-        return (1 - y) * a + y * b;
     }
 
     // Define
@@ -60,22 +45,19 @@ public class Shooter {
     double targetPos = 0;
     double sensorPos = 0;
     double degrees = 0;
-
     public void limeDisable() {
         table.getEntry("ledMode").setNumber(limeOff);
     }
-
-    public Vector getTargetPosition() {
+    public Vector getTargetPosition () {
         double tx = Math.toRadians(table.getEntry("tx").getDouble(0)) * 1.1;
         double ty = Math.toRadians(table.getEntry("ty").getDouble(0));
         double turretAngle = -(turretSpin.getSelectedSensorPosition() / 777.777) * Math.PI / 180;
-        double m = ((targetHeight - limeHeight) / Math.tan(limeAngle + ty) / 2);
+        double m = ((targetHeight - limeHeight) / Math.tan(limeAngle+ty) / 2);
         Vector targetRelLimelight = new Vector(tx, m, true);
         Vector targetRelTurret = targetRelLimelight.addVector(new Vector(limeRadius, 0));
-        System.out.println(targetRelTurret.getAngle() - turretAngle);
-        return new Vector(targetRelTurret.getAngle() - turretAngle, targetRelTurret.getMag(), true);
+        System.out.println(targetRelTurret.getAngle()-turretAngle);
+        return new Vector(targetRelTurret.getAngle()-turretAngle, targetRelTurret.getMag(), true);
     }
-
     public void shooterPeriodic() {
         degrees = (turretSpin.getSelectedSensorPosition(1));
         if (degrees > 70000) {
@@ -141,32 +123,28 @@ public class Shooter {
         }
         // sensorPos = -turretSpin.getSelectedSensorPosition() / 777;
         // System.out.println(sensorPos*777);
-        table.getEntry("ledMode").setNumber(limeOn);
+            table.getEntry("ledMode").setNumber(limeOn);
         if (counter % 2 == 0) {
             // visionX = table.getEntry("tx").getDouble(0);
             if (table.getEntry("tv").getDouble(0) > 0) {
                 turretX.start();
                 turretX.reset();
                 // if (Math.abs(visionX) < 5) {
-                // visionX = 0;
+                //     visionX = 0;
                 // }
                 // targetPos = sensorPos + visionX;
                 // targetPos = targetPos * 777;
                 // targetPos = 70000;
-                Vector newTargetposition = getTargetPosition();
-                // System.out.println(targetPosition);
-                // targetPos = (newTargetposition.getAngleDeg()) * 777.777;
-                System.out.println(newTargetposition.getAngleDeg() * 777.777);
-                targetPos = interpolate(newTargetposition.getAngleDeg() * 777.777, targetPos, Math.pow(constant, dt));
             } else {
-                if (turretX.get() > 2) {
-                    // targetPos = 0;
+                if(turretX.get() > 2) {
+                    targetPos = 0;
                 }
             }
-            Time = timer.get();
-            dt = Time - lastTime;
-            lastTime = Time;
-            turretSpin.set(ControlMode.Position, targetPos);
+            Vector targetPosition = getTargetPosition();
+            // System.out.println(targetPosition);
+            targetPos = (targetPosition.getAngleDeg()) * 777.777;
+            //  System.out.println(targetPos);
+             turretSpin.set(ControlMode.Position, targetPos);
 
             visionY = table.getEntry("ty").getDouble(0);
             if (table.getEntry("ty").getDouble(0) > 10 && table.getEntry("ty").getDouble(0) < 12) {
@@ -204,8 +182,7 @@ public class Shooter {
         SmartDashboard.putNumber("targetPos", targetPos);
         SmartDashboard.putNumber("sensorPos", sensorPos);
     }
-
-    public void song() {
+    public void song(){
         Rick.play();
     }
 }

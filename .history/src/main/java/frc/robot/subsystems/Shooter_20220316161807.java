@@ -16,7 +16,7 @@ public class Shooter {
     final double limeAngle = 0.401425728; // radians
     final double limeRadius = 8; // inches
     final double limeHeight = 8; // inches
-    final double targetHeight = 104; // tester stick hight = 58; // inches
+    final double targetHeight = 58; // Real hight = 104; // inches
     Timer debounce = new Timer();
     Timer turretY = new Timer();
     Timer turretX = new Timer();
@@ -29,7 +29,7 @@ public class Shooter {
     double dt = 0;
     double lastTime = 0;
     double Time = 0;
-    double constant = 0.05;
+    double constant = 0.5;
 
     public void shooterInit() {
         timer.start();
