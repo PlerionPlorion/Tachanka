@@ -49,10 +49,10 @@ public class Shooter {
         table.getEntry("ledMode").setNumber(limeOff);
     }
     public Vector getTargetPosition () {
-        double tx = Math.toRadians(table.getEntry("tx").getDouble(0)) * 1.1;
+        double tx = Math.toRadians(table.getEntry("tx").getDouble(0));
         double ty = Math.toRadians(table.getEntry("ty").getDouble(0));
         double turretAngle = -(turretSpin.getSelectedSensorPosition() / 777.777) * Math.PI / 180;
-        double m = ((targetHeight - limeHeight) / Math.tan(limeAngle+ty) / 2);
+        double m = ((targetHeight - limeHeight) / Math.tan(limeAngle+ty));
         Vector targetRelLimelight = new Vector(tx, m, true);
         Vector targetRelTurret = targetRelLimelight.addVector(new Vector(limeRadius, 0));
         System.out.println(targetRelTurret.getAngle()-turretAngle);

@@ -30,6 +30,7 @@ public class Drive {
     WPI_TalonFX rightBack = new WPI_TalonFX(4);
     MotorControllerGroup leftDrive = new MotorControllerGroup(leftFront, leftBack);
     MotorControllerGroup rightDrive = new MotorControllerGroup(rightFront, rightBack);
+    Orchestra Rick = new Orchestra();
 
     public Drive() {
         tachanka = new DifferentialDrive(leftDrive, rightDrive);
@@ -40,6 +41,10 @@ public class Drive {
         leftDrive.setInverted(true);
         joystick = new Joystick(0);
         lastTime = 0;
+        Rick.addInstrument(leftFront);
+        Rick.addInstrument(leftBack);
+        Rick.addInstrument(rightFront);
+        Rick.addInstrument(rightBack);
     
     }
 
@@ -122,7 +127,10 @@ public class Drive {
 
         tank();
     }
-
+    public void song() {
+        Rick.loadMusic("Rocky.chrp");
+        Rick.play();
+    }
 
 
     // auto

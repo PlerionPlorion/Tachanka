@@ -15,10 +15,9 @@ public class Climb {
     double controllerClimb = 0;
     double degrees = 0;
     double inches = 37;
-    public int counter = 0;
+    int counter = 1;
     public void climbInit() {
         climb = new Joystick(1);
-        counter = 1;
     }
 
 
@@ -39,10 +38,10 @@ public class Climb {
 
         }
         if(counter % 2 == 0) {
-            servo.set(0);
+            servo.set(0.5);
             climbMotor.set(ControlMode.PercentOutput, controllerClimb);
         } else {
-            servo.set(1);
+            servo.set(0);
             controllerClimb = 0;
         }
         //System.out.println(timer.get());

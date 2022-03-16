@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.Timer;
-import com.ctre.phoenix.music.Orchestra;
+
 public class Drive {
     private DifferentialDrive tachanka;
     private Joystick joystick;
@@ -30,6 +30,7 @@ public class Drive {
     WPI_TalonFX rightBack = new WPI_TalonFX(4);
     MotorControllerGroup leftDrive = new MotorControllerGroup(leftFront, leftBack);
     MotorControllerGroup rightDrive = new MotorControllerGroup(rightFront, rightBack);
+    
 
     public Drive() {
         tachanka = new DifferentialDrive(leftDrive, rightDrive);
@@ -40,7 +41,6 @@ public class Drive {
         leftDrive.setInverted(true);
         joystick = new Joystick(0);
         lastTime = 0;
-    
     }
 
     // Define

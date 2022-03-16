@@ -28,10 +28,8 @@ public class Shooter {
 
     public void shooterInit() {
         control = new Joystick(1);
-         Rick.loadMusic("Rocky.chrp");
+        // Rick.loadMusic("Rocky.chrp");
         Rick.addInstrument(turretSpin);
-        Rick.addInstrument(bottomShoot);
-        Rick.addInstrument(topShoot);
         turretY.reset();
     }
 
@@ -49,14 +47,13 @@ public class Shooter {
         table.getEntry("ledMode").setNumber(limeOff);
     }
     public Vector getTargetPosition () {
-        double tx = Math.toRadians(table.getEntry("tx").getDouble(0)) * 1.1;
-        double ty = Math.toRadians(table.getEntry("ty").getDouble(0));
-        double turretAngle = -(turretSpin.getSelectedSensorPosition() / 777.777) * Math.PI / 180;
-        double m = ((targetHeight - limeHeight) / Math.tan(limeAngle+ty) / 2);
-        Vector targetRelLimelight = new Vector(tx, m, true);
-        Vector targetRelTurret = targetRelLimelight.addVector(new Vector(limeRadius, 0));
-        System.out.println(targetRelTurret.getAngle()-turretAngle);
-        return new Vector(targetRelTurret.getAngle()-turretAngle, targetRelTurret.getMag(), true);
+        double tx = table.getEntry("tx").getDouble(0);
+        double ty = table.getEntry("ty").getDouble(0);
+        double m = (targetHeight - limeHeight) / Math.tan(limeAngle+ty);
+        double limeAngle = (turretSpin.getSelectedSensorPosition() / 777.777) * 180 / Math.PI;
+        Vector relTargetPosition = new Vector(tx+limeAngle, m, true);
+        Vector limePosition = new Vector(limeAngle, limeRadius, true);
+        return relTargetPosition.addVector(limePosition);
     }
     public void shooterPeriodic() {
         degrees = (turretSpin.getSelectedSensorPosition(1));
@@ -103,7 +100,7 @@ public class Shooter {
             if (counter % 2 == 0) {
 
             } else {
-                // table.getEntry("ledMode").setNumber(limeOff);
+                table.getEntry("ledMode").setNumber(limeOff);
                 if (control.getRawButton(12)) {
                     controllerShoot = 0.5;
                 } else {
@@ -121,11 +118,11 @@ public class Shooter {
             controllerTurn = 0;
             System.out.println("This controller is not supported");
         }
-        // sensorPos = -turretSpin.getSelectedSensorPosition() / 777;
-        // System.out.println(sensorPos*777);
-            table.getEntry("ledMode").setNumber(limeOn);
+        sensorPos = -turretSpin.getSelectedSensorPosition() / 777;
+        System.out.println(sensorPos*777);
         if (counter % 2 == 0) {
-            // visionX = table.getEntry("tx").getDouble(0);
+            table.getEntry("ledMode").setNumber(limeOn);
+            visionX = table.getEntry("tx").getDouble(0);
             if (table.getEntry("tv").getDouble(0) > 0) {
                 turretX.start();
                 turretX.reset();
@@ -135,16 +132,14 @@ public class Shooter {
                 // targetPos = sensorPos + visionX;
                 // targetPos = targetPos * 777;
                 // targetPos = 70000;
+                targetPos = getTargetPosition().getAngleDeg() * 777.777;
             } else {
                 if(turretX.get() > 2) {
-                    // targetPos = 0;
+                    targetPos = 0;
                 }
             }
-            Vector targetPosition = getTargetPosition();
-            // System.out.println(targetPosition);
-            targetPos = (targetPosition.getAngleDeg()) * 777.777;
-            //  System.out.println(targetPos);
-             turretSpin.set(ControlMode.Position, targetPos);
+            System.out.println(targetPos);
+            // turretSpin.set(ControlMode.Position, targetPos);
 
             visionY = table.getEntry("ty").getDouble(0);
             if (table.getEntry("ty").getDouble(0) > 10 && table.getEntry("ty").getDouble(0) < 12) {
@@ -181,9 +176,6 @@ public class Shooter {
         // System.out.println(controllerShoot);
         SmartDashboard.putNumber("targetPos", targetPos);
         SmartDashboard.putNumber("sensorPos", sensorPos);
-    }
-    public void song(){
-        Rick.play();
     }
 }
 // 6 top

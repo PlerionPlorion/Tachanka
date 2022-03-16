@@ -1,0 +1,13 @@
+"filename", "language", "Java", "comment", "blank", "total"
+"c:\Users\ruhmi\Documents\GitHub\Tachanka\src\main\java\frc\robot\Main.java", "Java", 8, 13, 5, 26
+"c:\Users\ruhmi\Documents\GitHub\Tachanka\src\main\java\frc\robot\Robot.java", "Java", 49, 6, 12, 67
+"c:\Users\ruhmi\Documents\GitHub\Tachanka\src\main\java\frc\robot\subsystems\Auto.java", "Java", 20, 0, 4, 24
+"c:\Users\ruhmi\Documents\GitHub\Tachanka\src\main\java\frc\robot\subsystems\Climb.java", "Java", 43, 1, 19, 63
+"c:\Users\ruhmi\Documents\GitHub\Tachanka\src\main\java\frc\robot\subsystems\Drive.java", "Java", 109, 16, 22, 147
+"c:\Users\ruhmi\Documents\GitHub\Tachanka\src\main\java\frc\robot\subsystems\LimelightVision.java", "Java", 46, 0, 6, 52
+"c:\Users\ruhmi\Documents\GitHub\Tachanka\src\main\java\frc\robot\subsystems\Pickup.java", "Java", 101, 2, 15, 118
+"c:\Users\ruhmi\Documents\GitHub\Tachanka\src\main\java\frc\robot\subsystems\Pivision.java", "Java", 18, 2, 5, 25
+"c:\Users\ruhmi\Documents\GitHub\Tachanka\src\main\java\frc\robot\subsystems\Shooter.java", "Java", 137, 24, 27, 188
+"c:\Users\ruhmi\Documents\GitHub\Tachanka\src\main\java\frc\robot\subsystems\Vector.java", "Java", 92, 114, 21, 227
+"c:\Users\ruhmi\Documents\GitHub\Tachanka\src\main\java\frc\robot\subsystems\navex.java", "Java", 0, 81, 21, 102
+"Total", "-", 623, 259, 157, 1039

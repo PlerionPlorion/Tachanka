@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import com.ctre.phoenix.music.Orchestra;
 
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
@@ -45,12 +46,11 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     if(climb.counter % 2 == 0) {
-      shooter.song();
-    }else {
-      shooter.shooterPeriodic();
-    }
     tachanka.drivePeriodic();
- 
+    }else {
+      
+    }
+    shooter.shooterPeriodic();
     limeVision.periodic();
     pickup.pickupPeriodic();
     //navex.navexPeriodic();

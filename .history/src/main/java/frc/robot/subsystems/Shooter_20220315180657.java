@@ -28,10 +28,8 @@ public class Shooter {
 
     public void shooterInit() {
         control = new Joystick(1);
-         Rick.loadMusic("Rocky.chrp");
+        // Rick.loadMusic("Rocky.chrp");
         Rick.addInstrument(turretSpin);
-        Rick.addInstrument(bottomShoot);
-        Rick.addInstrument(topShoot);
         turretY.reset();
     }
 
@@ -49,14 +47,14 @@ public class Shooter {
         table.getEntry("ledMode").setNumber(limeOff);
     }
     public Vector getTargetPosition () {
-        double tx = Math.toRadians(table.getEntry("tx").getDouble(0)) * 1.1;
+        double tx = Math.toRadians(table.getEntry("tx").getDouble(0));
         double ty = Math.toRadians(table.getEntry("ty").getDouble(0));
         double turretAngle = -(turretSpin.getSelectedSensorPosition() / 777.777) * Math.PI / 180;
-        double m = ((targetHeight - limeHeight) / Math.tan(limeAngle+ty) / 2);
-        Vector targetRelLimelight = new Vector(tx, m, true);
-        Vector targetRelTurret = targetRelLimelight.addVector(new Vector(limeRadius, 0));
-        System.out.println(targetRelTurret.getAngle()-turretAngle);
-        return new Vector(targetRelTurret.getAngle()-turretAngle, targetRelTurret.getMag(), true);
+        double m = ((targetHeight - limeHeight) / Math.tan(limeAngle+ty)) / 2;
+        Vector relTargetPosition = new Vector(tx, m, true);
+        Vector relRotatedVector = relTargetPosition.addVector(new Vector(0, limeRadius));
+        System.out.println(relTargetPosition);
+        return new Vector(relRotatedVector.getAngle()-turretAngle, relRotatedVector.getMag());
     }
     public void shooterPeriodic() {
         degrees = (turretSpin.getSelectedSensorPosition(1));
@@ -140,11 +138,9 @@ public class Shooter {
                     // targetPos = 0;
                 }
             }
-            Vector targetPosition = getTargetPosition();
-            // System.out.println(targetPosition);
-            targetPos = (targetPosition.getAngleDeg()) * 777.777;
-            //  System.out.println(targetPos);
-             turretSpin.set(ControlMode.Position, targetPos);
+            targetPos = (getTargetPosition().getAngleDeg() - 90) * 777.777;
+            // System.out.println(targetPos);
+            turretSpin.set(ControlMode.Position, targetPos);
 
             visionY = table.getEntry("ty").getDouble(0);
             if (table.getEntry("ty").getDouble(0) > 10 && table.getEntry("ty").getDouble(0) < 12) {
@@ -181,9 +177,6 @@ public class Shooter {
         // System.out.println(controllerShoot);
         SmartDashboard.putNumber("targetPos", targetPos);
         SmartDashboard.putNumber("sensorPos", sensorPos);
-    }
-    public void song(){
-        Rick.play();
     }
 }
 // 6 top

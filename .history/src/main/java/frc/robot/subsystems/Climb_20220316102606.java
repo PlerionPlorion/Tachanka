@@ -5,20 +5,18 @@ import com.ctre.phoenix.motorcontrol.can.TalonFX;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PWM;
-import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Climb {
     TalonFX climbMotor = new TalonFX(1);
-    Servo servo = new Servo(9);
+    PWM servo = new PWM(9);
     private Joystick climb;
     double controllerClimb = 0;
     double degrees = 0;
     double inches = 37;
-    public int counter = 0;
+    
     public void climbInit() {
         climb = new Joystick(1);
-        counter = 1;
     }
 
 
@@ -30,19 +28,14 @@ public class Climb {
         } else if (climb.getName().equals("Logitech Extreme 3D")) {
             controllerClimb = climb.getRawAxis(1);
             controllerClimb *= -1;
-            
+
         } else {
             System.out.println("This controller is not supported");
         }
         if(climb.getRawButtonPressed(6)){
-            counter += 1;
-
-        }
-        if(counter % 2 == 0) {
-            servo.set(0);
+            
             climbMotor.set(ControlMode.PercentOutput, controllerClimb);
         } else {
-            servo.set(1);
             controllerClimb = 0;
         }
         //System.out.println(timer.get());

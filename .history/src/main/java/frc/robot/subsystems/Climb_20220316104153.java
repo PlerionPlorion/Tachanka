@@ -15,7 +15,7 @@ public class Climb {
     double controllerClimb = 0;
     double degrees = 0;
     double inches = 37;
-    public int counter = 0;
+    int counter = 0;
     public void climbInit() {
         climb = new Joystick(1);
         counter = 1;

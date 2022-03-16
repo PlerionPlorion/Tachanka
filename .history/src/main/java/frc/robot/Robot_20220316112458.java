@@ -4,12 +4,12 @@
 
 package frc.robot;
 
-
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
 import frc.robot.subsystems.*;
 
 public class Robot extends TimedRobot {
+
   Timer timer = new Timer();
   Drive tachanka = new Drive();
   Shooter shooter = new Shooter();
@@ -45,12 +45,9 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     if(climb.counter % 2 == 0) {
-      shooter.song();
-    }else {
-      shooter.shooterPeriodic();
-    }
     tachanka.drivePeriodic();
- 
+    }
+    shooter.shooterPeriodic();
     limeVision.periodic();
     pickup.pickupPeriodic();
     //navex.navexPeriodic();
