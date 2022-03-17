@@ -198,7 +198,7 @@ public class Shooter {
         }
 
         // System.out.println(counter);
-        bottomShoot.set(ControlMode.PercentOutput, ((controllerShoot / 100) * 60));
+        bottomShoot.set(ControlMode.PercentOutput, ((controllerShoot / 100) * 65));
         topShoot.set(ControlMode.PercentOutput, ((controllerShoot / 100) * 40));
         // System.out.println(controllerShoot);
         SmartDashboard.putNumber("targetPos", targetPos);

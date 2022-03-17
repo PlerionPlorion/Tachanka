@@ -160,7 +160,7 @@ public class Shooter {
                 targetPos = interpolate(newTargetposition.getAngleDeg() * 777.777, targetPos, Math.pow(constant, dt));
             } else {
                 if (turretX.get() > 2) {
-                     targetPos = 0;
+                    // targetPos = 0;
                 }
             }
             Time = timer.get();
@@ -198,7 +198,7 @@ public class Shooter {
         }
 
         // System.out.println(counter);
-        bottomShoot.set(ControlMode.PercentOutput, ((controllerShoot / 100) * 60));
+        bottomShoot.set(ControlMode.PercentOutput, ((controllerShoot / 100) * 70));
         topShoot.set(ControlMode.PercentOutput, ((controllerShoot / 100) * 40));
         // System.out.println(controllerShoot);
         SmartDashboard.putNumber("targetPos", targetPos);
