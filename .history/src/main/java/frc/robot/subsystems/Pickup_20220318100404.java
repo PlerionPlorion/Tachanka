@@ -14,7 +14,7 @@ public class Pickup {
     private Joystick pickup;
     Timer timer = new Timer();
     Timer debounce = new Timer();
-    DigitalInput limSwitch = null;
+    DigitalInput limSwitch = new DigitalInput(0);
     VictorSPX elevBag = new VictorSPX(9);
     VictorSPX pickBag = new VictorSPX(13);
     WPI_VictorSPX bottomRight = new WPI_VictorSPX(10);
@@ -34,7 +34,7 @@ public class Pickup {
     public void pickupInit() {
         counter = 1;
         pickup = new Joystick(1);
-        limSwitch = new DigitalInput(0);
+
     }
 
     public void pickupPeriodic() {

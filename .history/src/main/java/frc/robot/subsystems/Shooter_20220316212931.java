@@ -29,7 +29,7 @@ public class Shooter {
     double dt = 0;
     double lastTime = 0;
     double Time = 0;
-    double accelFactor = 0.05;
+    double constant = 0.05;
 
     public void shooterInit() {
         timer.start();
@@ -121,8 +121,7 @@ public class Shooter {
             if (counter % 2 == 0) {
 
             } else {
-                
-                table.getEntry("ledMode").setNumber(limeOff);
+                 table.getEntry("ledMode").setNumber(limeOff);
                 if (control.getRawButton(12)) {
                     controllerShoot = 0.5;
                 } else {
@@ -132,7 +131,7 @@ public class Shooter {
                 if (Math.abs(controllerTurn) < 0.5) {
                     controllerTurn = 0;
                 }
-                //turretSpin.set(ControlMode.PercentOutput, controllerTurn);
+                turretSpin.set(ControlMode.PercentOutput, controllerTurn);
             }
             // System.out.println(controllerTurn);
         } else {
@@ -158,7 +157,7 @@ public class Shooter {
                 // System.out.println(targetPosition);
                 // targetPos = (newTargetposition.getAngleDeg()) * 777.777;
                 System.out.println(newTargetposition.getAngleDeg() * 777.777);
-                targetPos = interpolate(newTargetposition.getAngleDeg() * 777.777, targetPos, Math.pow(accelFactor, dt));
+                targetPos = interpolate(newTargetposition.getAngleDeg() * 777.777, targetPos, Math.pow(constant, dt));
             } else {
                 if (turretX.get() > 2) {
                      targetPos = 0;

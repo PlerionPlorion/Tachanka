@@ -14,27 +14,29 @@ public class Pickup {
     private Joystick pickup;
     Timer timer = new Timer();
     Timer debounce = new Timer();
-    DigitalInput limSwitch = null;
+    DigitalInput limSwitch = new DigitalInput(0);
     VictorSPX elevBag = new VictorSPX(9);
+    VictorSPX armBag = new VictorSPX(10);
     VictorSPX pickBag = new VictorSPX(13);
-    WPI_VictorSPX bottomRight = new WPI_VictorSPX(10);
+    WPI_VictorSPX bottomRight = new WPI_VictorSPX(14);
     WPI_VictorSPX bottomLeft = new WPI_VictorSPX(15);
-    WPI_VictorSPX topRight = new WPI_VictorSPX(16);
-    WPI_VictorSPX topLeft = new WPI_VictorSPX(17);
+    WPI_VictorSPX topRight = new WPI_VictorSPX(14);
+    WPI_VictorSPX topLeft = new WPI_VictorSPX(15);
     MotorControllerGroup bottomBags = new MotorControllerGroup(bottomLeft, bottomRight);
     MotorControllerGroup topBags = new MotorControllerGroup(topLeft, topRight);
     double Speed = 0;
     double controllerArm = 0;
     double controllerElevUp = 0;
+    double controllerArmBag = 0;
     double controllerBottom = 0;
     double controllerTop = 0;
     int counter = 1;
-    int bagIntakecounter = 1;
-    int bagDropcounter = 1;
+    int bagCounter = 1;
+
     public void pickupInit() {
         counter = 1;
         pickup = new Joystick(1);
-        limSwitch = new DigitalInput(0);
+
     }
 
     public void pickupPeriodic() {
@@ -67,15 +69,15 @@ public class Pickup {
         } else if (pickup.getName().equals("Logitech Extreme 3D")) {
             if (pickup.getPOV() == 0) {
                 controllerElevUp = 1;
-                
+                controllerArmBag = 0.4;
             }
             if (pickup.getPOV() == 180) {
                 controllerElevUp = -1;
-                
+                controllerArmBag = -0.4;
             }
             if (pickup.getPOV() != 0 && pickup.getPOV() != 180) {
                 controllerElevUp = 0;
-               
+                controllerArmBag = 0;
             }
             if (pickup.getRawButton(1)) {
                 counter += 1;
@@ -118,33 +120,21 @@ public class Pickup {
             controllerArm = 0;
     }
     if(pickup.getRawButtonPressed(3)){
-        bagIntakecounter += 1;
+        bagCounter += 1;
 
     }
     if(counter % 2 == 0) {
         bottomBags.set(0.5);
         topBags.set(-0.5);
     } else {
-        bottomBags.set(0);
-        topBags.set(0);
+        
         }
-        if(pickup.getRawButtonPressed(5)){
-            bagDropcounter += 1;
-    
-        }
-        if(counter % 2 == 0) {
-            bottomBags.set(0.5);
-            topBags.set(0.5);
-        } else {
-            bottomBags.set(0);
-            topBags.set(0);
-            }
     }
     
         //System.out.println(controllerArm);
         pickBag.set(ControlMode.PercentOutput, controllerArm);
         elevBag.set(ControlMode.PercentOutput, controllerElevUp);
-        
+        armBag.set(ControlMode.PercentOutput, controllerArmBag);
 
     }
     }

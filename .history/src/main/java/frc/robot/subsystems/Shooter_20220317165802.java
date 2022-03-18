@@ -132,7 +132,7 @@ public class Shooter {
                 if (Math.abs(controllerTurn) < 0.5) {
                     controllerTurn = 0;
                 }
-                //turretSpin.set(ControlMode.PercentOutput, controllerTurn);
+                turretSpin.set(ControlMode.PercentOutput, controllerTurn);
             }
             // System.out.println(controllerTurn);
         } else {

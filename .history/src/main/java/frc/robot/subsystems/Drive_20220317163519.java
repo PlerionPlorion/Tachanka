@@ -7,7 +7,6 @@ import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.Timer;
-
 public class Drive {
     private DifferentialDrive tachanka;
     private Joystick joystick;
@@ -40,7 +39,7 @@ public class Drive {
         leftDrive.setInverted(true);
         joystick = new Joystick(0);
         lastTime = 0;
-
+    
     }
 
     // Define
@@ -52,22 +51,19 @@ public class Drive {
     Timer timer = new Timer();
     double controllerTurn = 0;
     double controllerMove = 0;
-    double accelFactor = 0.05;
+    double constant = 0.025;
     double currentSpeed = 0;
     double dt = 0;
     double lastTime = 0;
     double Time = 0;
-
     public void tank() {
 
         tachanka.tankDrive(leftMotors, rightMotors);
         // System.out.println(leftMotors + " " + rightMotors);
     }
-
     public double interpolate(double a, double b, double y) {
-        return (1 - y) * a + y * b;
+        return (1-y)*a+y*b;
     }
-
     public void drivePeriodic() {
 
         if (joystick.getName().equals("Controller (XBOX 360 For Windows)")) {
@@ -93,8 +89,8 @@ public class Drive {
         } else if (joystick.getName().equals("Logitech Extreme 3D")) {
             controllerMove = joystick.getY();
             controllerTurn = joystick.getZ();
-            if (joystick.getRawButtonPressed(11)) {
-                multiplier = (-joystick.getRawAxis(3) + 1) / 2;
+            if(joystick.getRawButtonPressed(11)) {
+            multiplier = (-joystick.getRawAxis(3) + 1) / 2;
             }
             controllerMove = controllerMove * multiplier;
             controllerTurn = controllerTurn * multiplier;
@@ -114,19 +110,19 @@ public class Drive {
         if (Math.abs(controllerTurn) < 0.1) {
             controllerTurn = 0;
         }
-        Time = timer.get();
-        dt = Time - lastTime;
-        lastTime = Time;
+       Time = timer.get();
+       dt = Time - lastTime;
+       lastTime = Time;
         // setting motors
-        accelFactor = Math.abs(currentSpeed - controllerMove) * 0.05;
-        currentSpeed = interpolate(controllerMove, currentSpeed, Math.pow(accelFactor, dt));
-
-        leftMotors = currentSpeed - (controllerTurn / 2);
-        rightMotors = currentSpeed + (controllerTurn / 2);
+        currentSpeed = interpolate(controllerMove, currentSpeed, Math.pow(constant, dt));
+        leftMotors = currentSpeed - (controllerTurn/2);
+        rightMotors = currentSpeed + (controllerTurn/2);
         // leftMotors = leftMotors * Math.abs(joystick.getRawAxis(3));
 
         tank();
     }
+
+
 
     // auto
     public void rightTurn() {
@@ -138,12 +134,10 @@ public class Drive {
         leftMotors = 0.745;
         rightMotors = -0.745;
     }
-
-    public void straight() {
+    public void straight(){
         leftMotors = -0.5;
         rightMotors = -0.5;
     }
-
     public void stop() {
         leftMotors = 0;
         rightMotors = 0;

@@ -5,12 +5,13 @@
 package frc.robot;
 
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
 import frc.robot.subsystems.*;
 
 public class Robot extends TimedRobot {
-  
+  public DigitalInput limSwitch = new DigitalInput(0);
   Timer timer = new Timer();
   Drive tachanka = new Drive();
   Shooter shooter = new Shooter();
@@ -59,28 +60,15 @@ public class Robot extends TimedRobot {
   }
 
   // auto
-  // @Override
-  // public void autonomousInit() {
-  //   //autonomous.autonomousInit();
-  //   tachanka.driveInit();
-  //   timer.reset();
+  @Override
+  public void autonomousInit() {
+    autonomous.autonomousInit();
+  }
 
-  //   timer.start();
-  // }
+  @Override
+  public void autonomousPeriodic() {
+    autonomous.autonomousPeriodic();
 
-  // @Override
-  // public void autonomousPeriodic() {
-  //   //autonomous.autonomousPeriodic();
-    
-  //   if (timer.get() < 2) {
+  }
 
-  //   if (timer.get() > 2) {
-  //     tachanka.stop();
-
-  //   }
-  //   tachanka.tank();
-  // }
-
-  // }
 }
-

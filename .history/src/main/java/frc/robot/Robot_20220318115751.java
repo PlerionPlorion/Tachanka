@@ -59,28 +59,15 @@ public class Robot extends TimedRobot {
   }
 
   // auto
-  // @Override
-  // public void autonomousInit() {
-  //   //autonomous.autonomousInit();
-  //   tachanka.driveInit();
-  //   timer.reset();
+  @Override
+  public void autonomousInit() {
+    autonomous.autonomousInit();
+  }
 
-  //   timer.start();
-  // }
+  @Override
+  public void autonomousPeriodic() {
+    autonomous.autonomousPeriodic();
 
-  // @Override
-  // public void autonomousPeriodic() {
-  //   //autonomous.autonomousPeriodic();
-    
-  //   if (timer.get() < 2) {
+  }
 
-  //   if (timer.get() > 2) {
-  //     tachanka.stop();
-
-  //   }
-  //   tachanka.tank();
-  // }
-
-  // }
 }
-

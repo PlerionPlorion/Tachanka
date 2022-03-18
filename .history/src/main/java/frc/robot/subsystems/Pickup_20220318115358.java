@@ -3,7 +3,7 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
-
+import frc.robot.Robot;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.DigitalInput;
@@ -12,9 +12,9 @@ import edu.wpi.first.wpilibj.Joystick;
 public class Pickup {
 
     private Joystick pickup;
+    Robot robot = new Robot();
     Timer timer = new Timer();
     Timer debounce = new Timer();
-    DigitalInput limSwitch = null;
     VictorSPX elevBag = new VictorSPX(9);
     VictorSPX pickBag = new VictorSPX(13);
     WPI_VictorSPX bottomRight = new WPI_VictorSPX(10);
@@ -34,7 +34,7 @@ public class Pickup {
     public void pickupInit() {
         counter = 1;
         pickup = new Joystick(1);
-        limSwitch = new DigitalInput(0);
+
     }
 
     public void pickupPeriodic() {
@@ -114,7 +114,7 @@ public class Pickup {
         }
     }
     if(controllerArm > 0) {
-        if (limSwitch.get() == false) {
+        if (robot.limSwitch.get() == false) {
             controllerArm = 0;
     }
     if(pickup.getRawButtonPressed(3)){

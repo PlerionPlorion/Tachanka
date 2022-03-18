@@ -37,7 +37,7 @@ public class Climb {
 
         }
         if(counter % 2 == 0) {
-            servo.set(0.6);
+            servo.set(0.8);
             climbMotor.set(ControlMode.PercentOutput, controllerClimb);
         } else {
             servo.set(1);
