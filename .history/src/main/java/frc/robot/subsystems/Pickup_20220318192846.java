@@ -1,8 +1,7 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.can.VictorSPX;
-
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.DigitalInput;
@@ -14,12 +13,12 @@ public class Pickup {
     Timer timer = new Timer();
     Timer debounce = new Timer();
     DigitalInput limSwitch = new DigitalInput(0);
-    VictorSPX elevBag = new VictorSPX(9);
-    VictorSPX pickBag = new VictorSPX(13);
-    VictorSPX bottomRight = new VictorSPX(5);
-    VictorSPX bottomLeft = new VictorSPX(15);
-    VictorSPX topRight = new VictorSPX(11);
-    VictorSPX topLeft = new VictorSPX(10);
+    TalonSRX elevBag = new TalonSRX(9);
+    TalonSRX pickBag = new TalonSRX(13);
+    TalonSRX bottomRight = new TalonSRX(5);
+    TalonSRX bottomLeft = new TalonSRX(15);
+    TalonSRX topRight = new TalonSRX(11);
+    TalonSRX topLeft = new TalonSRX(10);
     double Speed = 0;
     double controllerArm = 0;
     double controllerElevUp = 0;
@@ -117,12 +116,11 @@ public class Pickup {
         bagIntakecounter += 1;
 
     }
-}
-    if(bagIntakecounter % 2 == 0) {
-        topLeft.set(ControlMode.PercentOutput, -0.2);
-        topRight.set(ControlMode.PercentOutput, -0.2);
-        bottomLeft.set(ControlMode.PercentOutput, 0.2);
-        bottomRight.set(ControlMode.PercentOutput, 0.2);
+    if(counter % 2 == 0) {
+        topLeft.set(ControlMode.PercentOutput, -0.5);
+        topRight.set(ControlMode.PercentOutput, -0.5);
+        bottomLeft.set(ControlMode.PercentOutput, 0.5);
+        bottomRight.set(ControlMode.PercentOutput, 0.5);
     } else {
         topLeft.set(ControlMode.PercentOutput, 0);
         topRight.set(ControlMode.PercentOutput, 0);
@@ -133,20 +131,18 @@ public class Pickup {
             bagDropcounter += 1;
     
         }
-        if(bagDropcounter % 2 == 0) {
-            topLeft.set(ControlMode.PercentOutput, 0.4);
-           // topRight.set(ControlMode.PercentOutput, -0.2);
-            bottomLeft.set(ControlMode.PercentOutput, -0.2);
-            bottomRight.set(ControlMode.PercentOutput, -0.4);
+        if(counter % 2 == 0) {
+            topLeft.set(ControlMode.PercentOutput, -0.5);
+            topRight.set(ControlMode.PercentOutput, -0.5);
+            bottomLeft.set(ControlMode.PercentOutput, -0.5);
+            bottomRight.set(ControlMode.PercentOutput, -0.5);
         } else {
             topLeft.set(ControlMode.PercentOutput, 0);
-           // topRight.set(ControlMode.PercentOutput, 0);
+            topRight.set(ControlMode.PercentOutput, 0);
             bottomLeft.set(ControlMode.PercentOutput, 0);
             bottomRight.set(ControlMode.PercentOutput, 0);
             }
-                
     }
-    
     
         //System.out.println(controllerArm);
         pickBag.set(ControlMode.PercentOutput, controllerArm);
@@ -155,4 +151,4 @@ public class Pickup {
 
     }
     }
-
+}

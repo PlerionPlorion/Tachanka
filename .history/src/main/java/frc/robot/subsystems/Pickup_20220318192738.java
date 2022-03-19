@@ -117,12 +117,11 @@ public class Pickup {
         bagIntakecounter += 1;
 
     }
-}
-    if(bagIntakecounter % 2 == 0) {
-        topLeft.set(ControlMode.PercentOutput, -0.2);
-        topRight.set(ControlMode.PercentOutput, -0.2);
-        bottomLeft.set(ControlMode.PercentOutput, 0.2);
-        bottomRight.set(ControlMode.PercentOutput, 0.2);
+    if(counter % 2 == 0) {
+        topLeft.set(ControlMode.PercentOutput, -0.5);
+        topRight.set(ControlMode.PercentOutput, -0.5);
+        bottomLeft.set(ControlMode.PercentOutput, 0.5);
+        bottomRight.set(ControlMode.PercentOutput, 0.5);
     } else {
         topLeft.set(ControlMode.PercentOutput, 0);
         topRight.set(ControlMode.PercentOutput, 0);
@@ -133,20 +132,18 @@ public class Pickup {
             bagDropcounter += 1;
     
         }
-        if(bagDropcounter % 2 == 0) {
-            topLeft.set(ControlMode.PercentOutput, 0.4);
-           // topRight.set(ControlMode.PercentOutput, -0.2);
-            bottomLeft.set(ControlMode.PercentOutput, -0.2);
-            bottomRight.set(ControlMode.PercentOutput, -0.4);
+        if(counter % 2 == 0) {
+            topLeft.set(ControlMode.PercentOutput, -0.5);
+            topRight.set(ControlMode.PercentOutput, -0.5);
+            bottomLeft.set(ControlMode.PercentOutput, -0.5);
+            bottomRight.set(ControlMode.PercentOutput, -0.5);
         } else {
             topLeft.set(ControlMode.PercentOutput, 0);
-           // topRight.set(ControlMode.PercentOutput, 0);
+            topRight.set(ControlMode.PercentOutput, 0);
             bottomLeft.set(ControlMode.PercentOutput, 0);
             bottomRight.set(ControlMode.PercentOutput, 0);
             }
-                
     }
-    
     
         //System.out.println(controllerArm);
         pickBag.set(ControlMode.PercentOutput, controllerArm);
@@ -155,4 +152,4 @@ public class Pickup {
 
     }
     }
-
+}

@@ -119,10 +119,10 @@ public class Pickup {
     }
 }
     if(bagIntakecounter % 2 == 0) {
-        topLeft.set(ControlMode.PercentOutput, -0.2);
-        topRight.set(ControlMode.PercentOutput, -0.2);
-        bottomLeft.set(ControlMode.PercentOutput, 0.2);
-        bottomRight.set(ControlMode.PercentOutput, 0.2);
+        topLeft.set(ControlMode.PercentOutput, -0.5);
+        topRight.set(ControlMode.PercentOutput, -0.5);
+        bottomLeft.set(ControlMode.PercentOutput, 0.5);
+        bottomRight.set(ControlMode.PercentOutput, 0.5);
     } else {
         topLeft.set(ControlMode.PercentOutput, 0);
         topRight.set(ControlMode.PercentOutput, 0);
@@ -134,13 +134,13 @@ public class Pickup {
     
         }
         if(bagDropcounter % 2 == 0) {
-            topLeft.set(ControlMode.PercentOutput, 0.4);
-           // topRight.set(ControlMode.PercentOutput, -0.2);
-            bottomLeft.set(ControlMode.PercentOutput, -0.2);
-            bottomRight.set(ControlMode.PercentOutput, -0.4);
+            topLeft.set(ControlMode.PercentOutput, -0.5);
+            topRight.set(ControlMode.PercentOutput, -0.5);
+            bottomLeft.set(ControlMode.PercentOutput, -0.5);
+            bottomRight.set(ControlMode.PercentOutput, -0.5);
         } else {
             topLeft.set(ControlMode.PercentOutput, 0);
-           // topRight.set(ControlMode.PercentOutput, 0);
+            topRight.set(ControlMode.PercentOutput, 0);
             bottomLeft.set(ControlMode.PercentOutput, 0);
             bottomRight.set(ControlMode.PercentOutput, 0);
             }

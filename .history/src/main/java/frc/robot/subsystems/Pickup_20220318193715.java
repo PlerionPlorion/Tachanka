@@ -134,13 +134,13 @@ public class Pickup {
     
         }
         if(bagDropcounter % 2 == 0) {
-            topLeft.set(ControlMode.PercentOutput, 0.4);
-           // topRight.set(ControlMode.PercentOutput, -0.2);
+            topLeft.set(ControlMode.PercentOutput, -0.2);
+            topRight.set(ControlMode.PercentOutput, -0.2);
             bottomLeft.set(ControlMode.PercentOutput, -0.2);
-            bottomRight.set(ControlMode.PercentOutput, -0.4);
+            bottomRight.set(ControlMode.PercentOutput, -0.2);
         } else {
             topLeft.set(ControlMode.PercentOutput, 0);
-           // topRight.set(ControlMode.PercentOutput, 0);
+            topRight.set(ControlMode.PercentOutput, 0);
             bottomLeft.set(ControlMode.PercentOutput, 0);
             bottomRight.set(ControlMode.PercentOutput, 0);
             }

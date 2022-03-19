@@ -2,9 +2,10 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
-
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Joystick;
 
@@ -13,13 +14,15 @@ public class Pickup {
     private Joystick pickup;
     Timer timer = new Timer();
     Timer debounce = new Timer();
-    DigitalInput limSwitch = new DigitalInput(0);
+    DigitalInput limSwitch = null;
     VictorSPX elevBag = new VictorSPX(9);
     VictorSPX pickBag = new VictorSPX(13);
-    VictorSPX bottomRight = new VictorSPX(5);
-    VictorSPX bottomLeft = new VictorSPX(15);
-    VictorSPX topRight = new VictorSPX(11);
-    VictorSPX topLeft = new VictorSPX(10);
+    WPI_VictorSPX bottomRight = new WPI_VictorSPX(5);
+    WPI_VictorSPX bottomLeft = new WPI_VictorSPX(15);
+    WPI_VictorSPX topRight = new WPI_VictorSPX(11);
+    WPI_VictorSPX topLeft = new WPI_VictorSPX(10);
+    MotorControllerGroup bottomBags = new MotorControllerGroup(bottomLeft, bottomRight);
+    MotorControllerGroup topBags = new MotorControllerGroup(topLeft, topRight);
     double Speed = 0;
     double controllerArm = 0;
     double controllerElevUp = 0;
@@ -31,6 +34,7 @@ public class Pickup {
     public void pickupInit() {
         counter = 1;
         pickup = new Joystick(1);
+        limSwitch = new DigitalInput(0);
     }
 
     public void pickupPeriodic() {
@@ -117,36 +121,25 @@ public class Pickup {
         bagIntakecounter += 1;
 
     }
-}
-    if(bagIntakecounter % 2 == 0) {
-        topLeft.set(ControlMode.PercentOutput, -0.2);
-        topRight.set(ControlMode.PercentOutput, -0.2);
-        bottomLeft.set(ControlMode.PercentOutput, 0.2);
-        bottomRight.set(ControlMode.PercentOutput, 0.2);
+    if(counter % 2 == 0) {
+        bottomBags.set(0.5);
+        topBags.set(-0.5);
     } else {
-        topLeft.set(ControlMode.PercentOutput, 0);
-        topRight.set(ControlMode.PercentOutput, 0);
-        bottomLeft.set(ControlMode.PercentOutput, 0);
-        bottomRight.set(ControlMode.PercentOutput, 0);
+        bottomBags.set(0);
+        topBags.set(0);
         }
         if(pickup.getRawButtonPressed(5)){
             bagDropcounter += 1;
     
         }
-        if(bagDropcounter % 2 == 0) {
-            topLeft.set(ControlMode.PercentOutput, 0.4);
-           // topRight.set(ControlMode.PercentOutput, -0.2);
-            bottomLeft.set(ControlMode.PercentOutput, -0.2);
-            bottomRight.set(ControlMode.PercentOutput, -0.4);
+        if(counter % 2 == 0) {
+            bottomBags.set(0.5);
+            topBags.set(0.5);
         } else {
-            topLeft.set(ControlMode.PercentOutput, 0);
-           // topRight.set(ControlMode.PercentOutput, 0);
-            bottomLeft.set(ControlMode.PercentOutput, 0);
-            bottomRight.set(ControlMode.PercentOutput, 0);
+            bottomBags.set(0);
+            topBags.set(0);
             }
-                
     }
-    
     
         //System.out.println(controllerArm);
         pickBag.set(ControlMode.PercentOutput, controllerArm);
@@ -155,4 +148,4 @@ public class Pickup {
 
     }
     }
-
+}

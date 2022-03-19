@@ -5,22 +5,12 @@
 package frc.robot;
 
 
-import com.kauailabs.navx.frc.AHRS;
-
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
 import frc.robot.subsystems.*;
 
 public class Robot extends TimedRobot {
-    //   AHRS navex;
-    // Drive auto = new Drive();
-    // double inches = 20000;
-    // Timer timerAuto = new Timer();
-    // public void stop() {
-    //     auto.leftDrive.set(0);
-    //     auto.rightDrive.set(0);
-    // }
   Timer timer = new Timer();
   Drive tachanka = new Drive();
   Shooter shooter = new Shooter();
@@ -70,11 +60,11 @@ public class Robot extends TimedRobot {
   // auto
   // @Override
   // public void autonomousInit() {
-  //         timer.reset();
-  //         navex = new AHRS(edu.wpi.first.wpilibj.SerialPort.Port.kUSB);
-  //         navex.reset();
-  //         auto.rightDrive.setInverted(true);
-  //     }
+  //   //autonomous.autonomousInit();
+  //   tachanka.driveInit();
+  //   timer.reset();
+
+  //   timer.start();
   // }
 
   // @Override

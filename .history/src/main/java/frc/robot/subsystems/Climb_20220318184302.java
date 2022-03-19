@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Climb {
     TalonFX climbMotor = new TalonFX(1);
-    Servo servo = new Servo(9);
+    Servo servo = new Servo(10);
     private Joystick climb;
     double controllerClimb = 0;
     double degrees = 0;
@@ -37,7 +37,7 @@ public class Climb {
 
         }
         if(counter % 2 == 0) {
-            servo.set(0.5);
+            servo.set(0.6);
             System.out.println(servo.get());
             climbMotor.set(ControlMode.PercentOutput, controllerClimb);
         } else {

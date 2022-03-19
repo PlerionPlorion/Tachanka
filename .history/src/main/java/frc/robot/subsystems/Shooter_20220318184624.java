@@ -142,7 +142,7 @@ public class Shooter {
         }
         // sensorPos = -turretSpin.getSelectedSensorPosition() / 777;
         // System.out.println(sensorPos*777);
-         table.getEntry("ledMode").setNumber(limeOn);
+        // table.getEntry("ledMode").setNumber(limeOn);
         if (counter % 2 == 0) {
             // visionX = table.getEntry("tx").getDouble(0);
             if (table.getEntry("tv").getDouble(0) > 0) {
