@@ -42,7 +42,7 @@ public class Climb {
             climbMotor.set(ControlMode.PercentOutput, controllerClimb);
         } else {
             servo.set(1);
-            //System.out.println(servo.get());
+            System.out.println(servo.get());
             if(controllerClimb < 0) {
                 climbMotor.set(ControlMode.PercentOutput, controllerClimb);
             }

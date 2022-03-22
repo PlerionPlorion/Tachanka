@@ -51,7 +51,7 @@ public class Drive {
     double multiplier = 0;
     Timer timer = new Timer();
     double controllerTurn = 0;
-    public double controllerMove = 0;
+    double controllerMove = 0;
     double accelFactor = 0.05;
     double currentSpeed = 0;
     double dt = 0;

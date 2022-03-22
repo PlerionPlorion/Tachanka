@@ -4,6 +4,11 @@
 
 package frc.robot;
 
+
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.kauailabs.navx.frc.AHRS;
+
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
 import frc.robot.subsystems.*;
@@ -15,16 +20,14 @@ public class Robot extends TimedRobot {
   Shooter shooter = new Shooter();
   Pivision vision = new Pivision();
   LimelightVision limeVision = new LimelightVision();
-  Auto autonomous = new Auto();
-   Pickup pickup = new Pickup();
+  Pickup pickup = new Pickup();
   Climb climb = new Climb();
-  // navex navex = new navex();
+  //navex navex = new navex();
 
   @Override
-  public void disabledPeriodic() {
+  public void disabledPeriodic () {
     shooter.limeDisable();
   }
-
   @Override
   public void robotInit() {
     vision.init();
@@ -34,41 +37,55 @@ public class Robot extends TimedRobot {
   public void robotPeriodic() {
     vision.printVisionMessage();
   }
-
+  
   @Override
   public void teleopInit() {
     tachanka.driveInit();
     climb.climbInit();
     shooter.shooterInit();
-     pickup.pickupInit();
+    pickup.pickupInit();
   }
 
   @Override
   public void teleopPeriodic() {
-    if (climb.counter % 2 == 0) {
+    if(climb.counter % 2 == 0) {
       shooter.song();
-    } else {
+    }else {
       shooter.shooterPeriodic();
     }
     tachanka.drivePeriodic();
-
+ 
     limeVision.periodic();
-     pickup.pickupPeriodic();
-    // navex.navexPeriodic();
-    climb.climbPeriodic();
+    pickup.pickupPeriodic();
+    //navex.navexPeriodic();
+   climb.climbPeriodic();
   }
 
   // auto
   @Override
   public void autonomousInit() {
-    autonomous.autonomousInit();
+          timer.reset();
 
-  }
+      }
+  
 
   @Override
   public void autonomousPeriodic() {
-    autonomous.autonomousPeriodic();
+    //autonomous.autonomousPeriodic();
+    tachanka.driveInit();
+    tachanka.drivePeriodic();
+    timer.start();
+    if (timer.get() < 2) {
+      tachanka.controllerMove = 0.5;
+    if (timer.get() > 2) {
+      tachanka.controllerMove = 0;
+      timer.stop();
+      timer.reset();
+    }
 
   }
+  tachanka.tank();
 
+  }
 }
+

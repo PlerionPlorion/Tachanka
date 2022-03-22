@@ -15,8 +15,8 @@ public class Robot extends TimedRobot {
   Shooter shooter = new Shooter();
   Pivision vision = new Pivision();
   LimelightVision limeVision = new LimelightVision();
-  Auto autonomous = new Auto();
-   Pickup pickup = new Pickup();
+  //Auto autonomous = new Auto();
+  // Pickup pickup = new Pickup();
   Climb climb = new Climb();
   // navex navex = new navex();
 
@@ -40,7 +40,7 @@ public class Robot extends TimedRobot {
     tachanka.driveInit();
     climb.climbInit();
     shooter.shooterInit();
-     pickup.pickupInit();
+    // pickup.pickupInit();
   }
 
   @Override
@@ -53,7 +53,7 @@ public class Robot extends TimedRobot {
     tachanka.drivePeriodic();
 
     limeVision.periodic();
-     pickup.pickupPeriodic();
+    // pickup.pickupPeriodic();
     // navex.navexPeriodic();
     climb.climbPeriodic();
   }
@@ -61,13 +61,13 @@ public class Robot extends TimedRobot {
   // auto
   @Override
   public void autonomousInit() {
-    autonomous.autonomousInit();
+    timer.reset();
 
   }
 
   @Override
   public void autonomousPeriodic() {
-    autonomous.autonomousPeriodic();
+     //autonomous.autonomousPeriodic();
 
   }
 

@@ -72,8 +72,53 @@ public class Shooter {
         double m = ((targetHeight - limeHeight) / Math.tan(limeAngle + ty) / 2);
         Vector targetRelLimelight = new Vector(tx, m, true);
         Vector targetRelTurret = targetRelLimelight.addVector(new Vector(limeRadius, 0));
-       // System.out.println(targetRelTurret.getAngle() - turretAngle);
+        System.out.println(targetRelTurret.getAngle() - turretAngle);
         return new Vector(targetRelTurret.getAngle() - turretAngle, targetRelTurret.getMag(), true);
+    }
+    public void shooterLime(){
+                // sensorPos = -turretSpin.getSelectedSensorPosition() / 777;
+        // System.out.println(sensorPos*777);
+        table.getEntry("ledMode").setNumber(limeOn);
+        if (counter % 2 == 0) {
+            // visionX = table.getEntry("tx").getDouble(0);
+            if (table.getEntry("tv").getDouble(0) > 0) {
+                turretX.start();
+                turretX.reset();
+                // if (Math.abs(visionX) < 5) {
+                // visionX = 0;
+                // }
+                // targetPos = sensorPos + visionX;
+                // targetPos = targetPos * 777;
+                // targetPos = 70000;
+                Vector newTargetposition = getTargetPosition();
+                // System.out.println(targetPosition);
+                // targetPos = (newTargetposition.getAngleDeg()) * 777.777;
+                System.out.println(newTargetposition.getAngleDeg() * 777.777);
+                targetPos = interpolate(newTargetposition.getAngleDeg() * 777.777, targetPos, Math.pow(accelFactor, dt));
+            } else {
+                if (turretX.get() > 2) {
+                     targetPos = 0;
+                }
+            }
+            Time = timer.get();
+            dt = Time - lastTime;
+            lastTime = Time;
+            turretSpin.set(ControlMode.Position, targetPos);
+
+            visionY = table.getEntry("ty").getDouble(0);
+            if (table.getEntry("ty").getDouble(0) > 10 && table.getEntry("ty").getDouble(0) < 12) {
+                turretY.start();
+                turretY.reset();
+                controllerShoot = 0.5;
+                // System.out.println(targetPos);
+
+            } else {
+                if (turretY.get() > 2) {
+                    controllerShoot = 0;
+                    turretY.stop();
+                }
+            }
+        }
     }
     public void shooterPeriodic() {
         degrees = (turretSpin.getSelectedSensorPosition(1));
@@ -118,49 +163,7 @@ public class Shooter {
 
             }
             if (counter % 2 == 0) {
-                                // sensorPos = -turretSpin.getSelectedSensorPosition() / 777;
-        // System.out.println(sensorPos*777);
-        table.getEntry("ledMode").setNumber(limeOn);
-        if (counter % 2 == 0) {
-            // visionX = table.getEntry("tx").getDouble(0);
-            if (table.getEntry("tv").getDouble(0) > 0) {
-                turretX.start();
-                turretX.reset();
-                // if (Math.abs(visionX) < 5) {
-                // visionX = 0;
-                // }
-                // targetPos = sensorPos + visionX;
-                // targetPos = targetPos * 777;
-                // targetPos = 70000;
-                Vector newTargetposition = getTargetPosition();
-                // System.out.println(targetPosition);
-                // targetPos = (newTargetposition.getAngleDeg()) * 777.777;
-               // System.out.println(newTargetposition.getAngleDeg() * 777.777);
-                targetPos = interpolate(newTargetposition.getAngleDeg() * 777.777, targetPos, Math.pow(accelFactor, dt));
-            } else {
-                if (turretX.get() > 2) {
-                     targetPos = 0;
-                }
-            }
-            Time = timer.get();
-            dt = Time - lastTime;
-            lastTime = Time;
-            turretSpin.set(ControlMode.Position, targetPos);
 
-            visionY = table.getEntry("ty").getDouble(0);
-            if (table.getEntry("ty").getDouble(0) > 10 && table.getEntry("ty").getDouble(0) < 12) {
-                turretY.start();
-                turretY.reset();
-                controllerShoot = 0.5;
-                // System.out.println(targetPos);
-
-            } else {
-                if (turretY.get() > 2) {
-                    controllerShoot = 0;
-                    turretY.stop();
-                }
-            }
-        }
             } else {
                 
                 table.getEntry("ledMode").setNumber(limeOff);

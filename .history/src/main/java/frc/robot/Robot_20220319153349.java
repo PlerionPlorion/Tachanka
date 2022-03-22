@@ -15,7 +15,7 @@ public class Robot extends TimedRobot {
   Shooter shooter = new Shooter();
   Pivision vision = new Pivision();
   LimelightVision limeVision = new LimelightVision();
-  Auto autonomous = new Auto();
+  //Auto autonomous = new Auto();
    Pickup pickup = new Pickup();
   Climb climb = new Climb();
   // navex navex = new navex();
@@ -61,13 +61,13 @@ public class Robot extends TimedRobot {
   // auto
   @Override
   public void autonomousInit() {
-    autonomous.autonomousInit();
+    //autonomous.autonomousInit();
 
   }
 
   @Override
   public void autonomousPeriodic() {
-    autonomous.autonomousPeriodic();
+    //autonomous.autonomousPeriodic();
 
   }
 

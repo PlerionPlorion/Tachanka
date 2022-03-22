@@ -25,9 +25,9 @@ public class Drive {
     // rearRight);
 
     public WPI_TalonFX leftFront = new WPI_TalonFX(3);
-    public WPI_TalonFX leftBack = new WPI_TalonFX(2);
-    public WPI_TalonFX rightFront = new WPI_TalonFX(5);
-    public WPI_TalonFX rightBack = new WPI_TalonFX(4);
+    WPI_TalonFX leftBack = new WPI_TalonFX(2);
+    WPI_TalonFX rightFront = new WPI_TalonFX(5);
+    WPI_TalonFX rightBack = new WPI_TalonFX(4);
     public MotorControllerGroup leftDrive = new MotorControllerGroup(leftFront, leftBack);
     public MotorControllerGroup rightDrive = new MotorControllerGroup(rightFront, rightBack);
 
@@ -51,7 +51,7 @@ public class Drive {
     double multiplier = 0;
     Timer timer = new Timer();
     double controllerTurn = 0;
-    public double controllerMove = 0;
+    double controllerMove = 0;
     double accelFactor = 0.05;
     double currentSpeed = 0;
     double dt = 0;

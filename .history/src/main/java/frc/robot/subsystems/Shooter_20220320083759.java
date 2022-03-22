@@ -72,7 +72,7 @@ public class Shooter {
         double m = ((targetHeight - limeHeight) / Math.tan(limeAngle + ty) / 2);
         Vector targetRelLimelight = new Vector(tx, m, true);
         Vector targetRelTurret = targetRelLimelight.addVector(new Vector(limeRadius, 0));
-       // System.out.println(targetRelTurret.getAngle() - turretAngle);
+        System.out.println(targetRelTurret.getAngle() - turretAngle);
         return new Vector(targetRelTurret.getAngle() - turretAngle, targetRelTurret.getMag(), true);
     }
     public void shooterPeriodic() {
@@ -135,7 +135,7 @@ public class Shooter {
                 Vector newTargetposition = getTargetPosition();
                 // System.out.println(targetPosition);
                 // targetPos = (newTargetposition.getAngleDeg()) * 777.777;
-               // System.out.println(newTargetposition.getAngleDeg() * 777.777);
+                System.out.println(newTargetposition.getAngleDeg() * 777.777);
                 targetPos = interpolate(newTargetposition.getAngleDeg() * 777.777, targetPos, Math.pow(accelFactor, dt));
             } else {
                 if (turretX.get() > 2) {

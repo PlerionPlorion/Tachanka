@@ -13,33 +13,27 @@ Shooter autoShooter = new Shooter();
 Pickup autoPickup = new Pickup();
 public void autonomousInit() {
         timer.reset();
-        timer.start();
+        
     }
 
 
 
 public void autonomousPeriodic() {
-
+  timer.start();
 
     autoDrive.leftMotors = -0.5;
     autoDrive.rightMotors = 0.5;
     System.out.println(timer.get());
-  if (timer.get() > 2.6) {
+  if (timer.get() > 2.5) {
     autoDrive.rightMotors = 0;
     autoDrive.leftMotors = 0;
-
+    timer.stop();
     //timer.reset();
-  }
-   if(timer.get() > 2.7) {
+  } if(timer.get() > 2.5) {
     autoShooter.bottomShoot.set(ControlMode.PercentOutput, 0.4);
     autoShooter.topShoot.set(ControlMode.PercentOutput, 0.2);
-  } if (timer.get() > 5.0) {
+  } if (timer.get() > 2.6) {
     autoPickup.elevBag.set(ControlMode.PercentOutput, 1);
-  } if (timer.get() > 6) {
-    autoShooter.bottomShoot.set(ControlMode.PercentOutput, 0.0);
-    autoShooter.topShoot.set(ControlMode.PercentOutput, 0.0);
-    autoPickup.elevBag.set(ControlMode.PercentOutput, 0);
-    timer.stop();
   }
 
 

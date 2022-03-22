@@ -72,9 +72,10 @@ public class Shooter {
         double m = ((targetHeight - limeHeight) / Math.tan(limeAngle + ty) / 2);
         Vector targetRelLimelight = new Vector(tx, m, true);
         Vector targetRelTurret = targetRelLimelight.addVector(new Vector(limeRadius, 0));
-       // System.out.println(targetRelTurret.getAngle() - turretAngle);
+        System.out.println(targetRelTurret.getAngle() - turretAngle);
         return new Vector(targetRelTurret.getAngle() - turretAngle, targetRelTurret.getMag(), true);
     }
+
     public void shooterPeriodic() {
         degrees = (turretSpin.getSelectedSensorPosition(1));
         if (degrees > 70000) {
@@ -118,9 +119,30 @@ public class Shooter {
 
             }
             if (counter % 2 == 0) {
-                                // sensorPos = -turretSpin.getSelectedSensorPosition() / 777;
+
+            } else {
+                
+                table.getEntry("ledMode").setNumber(limeOff);
+                if (control.getRawButton(12)) {
+                    controllerShoot = 0.5;
+                } else {
+                    controllerShoot = 0.0;
+                }
+                controllerTurn = control.getZ();
+                if (Math.abs(controllerTurn) < 0.5) {
+                    controllerTurn = 0;
+                }
+                turretSpin.set(ControlMode.PercentOutput, controllerTurn);
+            }
+            // System.out.println(controllerTurn);
+        } else {
+            controllerShoot = 0;
+            controllerTurn = 0;
+            System.out.println("This controller is not supported");
+        }
+        // sensorPos = -turretSpin.getSelectedSensorPosition() / 777;
         // System.out.println(sensorPos*777);
-        table.getEntry("ledMode").setNumber(limeOn);
+         table.getEntry("ledMode").setNumber(limeOn);
         if (counter % 2 == 0) {
             // visionX = table.getEntry("tx").getDouble(0);
             if (table.getEntry("tv").getDouble(0) > 0) {
@@ -135,7 +157,7 @@ public class Shooter {
                 Vector newTargetposition = getTargetPosition();
                 // System.out.println(targetPosition);
                 // targetPos = (newTargetposition.getAngleDeg()) * 777.777;
-               // System.out.println(newTargetposition.getAngleDeg() * 777.777);
+                System.out.println(newTargetposition.getAngleDeg() * 777.777);
                 targetPos = interpolate(newTargetposition.getAngleDeg() * 777.777, targetPos, Math.pow(accelFactor, dt));
             } else {
                 if (turretX.get() > 2) {
@@ -160,30 +182,8 @@ public class Shooter {
                     turretY.stop();
                 }
             }
-        }
-            } else {
-                
-                table.getEntry("ledMode").setNumber(limeOff);
-                if (control.getRawButton(12)) {
-                    controllerShoot = 0.5;
-                } else {
-                    controllerShoot = 0.0;
-                }
-                controllerTurn = control.getZ();
-                if (Math.abs(controllerTurn) < 0.5) {
-                    controllerTurn = 0;
-                }
-                turretSpin.set(ControlMode.PercentOutput, controllerTurn);
-            }
-            // System.out.println(controllerTurn);
-        } else {
-            controllerShoot = 0;
-            controllerTurn = 0;
-            System.out.println("This controller is not supported");
-        }
 
-
-        
+        }
         if (degrees > 70000) {
             if (targetPos > 90) {
 

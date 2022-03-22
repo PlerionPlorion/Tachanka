@@ -1,48 +1,31 @@
 package frc.robot.subsystems;
 
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
-
 import edu.wpi.first.wpilibj.Timer;
 
 public class Auto {
 // auto
 Timer timer = new Timer();
 Drive autoDrive = new Drive();
-Shooter autoShooter = new Shooter();
-Pickup autoPickup = new Pickup();
 public void autonomousInit() {
         timer.reset();
-        timer.start();
+        
     }
 
 
 
 public void autonomousPeriodic() {
-
-
-    autoDrive.leftMotors = -0.5;
-    autoDrive.rightMotors = 0.5;
+  timer.start();
+  if (timer.get() < 2) {
+    autoDrive.controllerMove = 0.5;
     System.out.println(timer.get());
-  if (timer.get() > 2.6) {
-    autoDrive.rightMotors = 0;
-    autoDrive.leftMotors = 0;
-
-    //timer.reset();
-  }
-   if(timer.get() > 2.7) {
-    autoShooter.bottomShoot.set(ControlMode.PercentOutput, 0.4);
-    autoShooter.topShoot.set(ControlMode.PercentOutput, 0.2);
-  } if (timer.get() > 5.0) {
-    autoPickup.elevBag.set(ControlMode.PercentOutput, 1);
-  } if (timer.get() > 6) {
-    autoShooter.bottomShoot.set(ControlMode.PercentOutput, 0.0);
-    autoShooter.topShoot.set(ControlMode.PercentOutput, 0.0);
-    autoPickup.elevBag.set(ControlMode.PercentOutput, 0);
+  if (timer.get() > 2) {
+    autoDrive.controllerMove = 0;
     timer.stop();
+    timer.reset();
   }
 
-
+}
 autoDrive.tank();
 
 }
