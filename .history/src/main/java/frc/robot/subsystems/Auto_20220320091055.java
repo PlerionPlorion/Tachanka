@@ -31,7 +31,7 @@ public void autonomousPeriodic() {
     //timer.reset();
   }
    if(timer.get() > 2.7) {
-    autoShooter.bottomShoot.set(ControlMode.PercentOutput, 0.4);
+    autoShooter.bottomShoot.set(ControlMode.PercentOutput, 0.45);
     autoShooter.topShoot.set(ControlMode.PercentOutput, 0.2);
   } if (timer.get() > 5.0) {
     autoPickup.elevBag.set(ControlMode.PercentOutput, 1);
