@@ -40,7 +40,6 @@ public class Shooter {
         Rick.addInstrument(bottomShoot);
         Rick.addInstrument(topShoot);
         turretY.reset();
-
         dt = 0;
         lastTime = 0;
         Time = 0;
@@ -53,7 +52,7 @@ public class Shooter {
 
     // Define
     double controllerTurn = 0;
-    double controllerShoot = 0;
+    public double controllerShoot = 0;
     double limelightTurn = 0;
     int counter = 1;
     double visionX = 0;
@@ -76,7 +75,51 @@ public class Shooter {
         System.out.println(targetRelTurret.getAngle() - turretAngle);
         return new Vector(targetRelTurret.getAngle() - turretAngle, targetRelTurret.getMag(), true);
     }
+    public void shooterLime(){
+                // sensorPos = -turretSpin.getSelectedSensorPosition() / 777;
+        // System.out.println(sensorPos*777);
+        table.getEntry("ledMode").setNumber(limeOn);
+        if (counter % 2 == 0) {
+            // visionX = table.getEntry("tx").getDouble(0);
+            if (table.getEntry("tv").getDouble(0) > 0) {
+                turretX.start();
+                turretX.reset();
+                // if (Math.abs(visionX) < 5) {
+                // visionX = 0;
+                // }
+                // targetPos = sensorPos + visionX;
+                // targetPos = targetPos * 777;
+                // targetPos = 70000;
+                Vector newTargetposition = getTargetPosition();
+                // System.out.println(targetPosition);
+                // targetPos = (newTargetposition.getAngleDeg()) * 777.777;
+                System.out.println(newTargetposition.getAngleDeg() * 777.777);
+                targetPos = interpolate(newTargetposition.getAngleDeg() * 777.777, targetPos, Math.pow(accelFactor, dt));
+            } else {
+                if (turretX.get() > 2) {
+                     targetPos = 0;
+                }
+            }
+            Time = timer.get();
+            dt = Time - lastTime;
+            lastTime = Time;
+            turretSpin.set(ControlMode.Position, targetPos);
 
+            visionY = table.getEntry("ty").getDouble(0);
+            if (table.getEntry("ty").getDouble(0) > 10 && table.getEntry("ty").getDouble(0) < 12) {
+                turretY.start();
+                turretY.reset();
+                controllerShoot = 0.5;
+                // System.out.println(targetPos);
+
+            } else {
+                if (turretY.get() > 2) {
+                    controllerShoot = 0;
+                    turretY.stop();
+                }
+            }
+        }
+    }
     public void shooterPeriodic() {
         degrees = (turretSpin.getSelectedSensorPosition(1));
         if (degrees > 70000) {
@@ -120,7 +163,7 @@ public class Shooter {
 
             }
             if (counter % 2 == 0) {
-
+                shooterLime();
             } else {
                 
                 table.getEntry("ledMode").setNumber(limeOff);
@@ -141,50 +184,9 @@ public class Shooter {
             controllerTurn = 0;
             System.out.println("This controller is not supported");
         }
-        // sensorPos = -turretSpin.getSelectedSensorPosition() / 777;
-        // System.out.println(sensorPos*777);
-         table.getEntry("ledMode").setNumber(limeOn);
-        if (counter % 2 == 0) {
-            // visionX = table.getEntry("tx").getDouble(0);
-            if (table.getEntry("tv").getDouble(0) > 0) {
-                turretX.start();
-                turretX.reset();
-                // if (Math.abs(visionX) < 5) {
-                // visionX = 0;
-                // }
-                // targetPos = sensorPos + visionX;
-                // targetPos = targetPos * 777;
-                // targetPos = 70000;
-                Vector newTargetposition = getTargetPosition();
-                // System.out.println(targetPosition);
-                // targetPos = (newTargetposition.getAngleDeg()) * 777.777;
-                System.out.println(newTargetposition.getAngleDeg() * 777.777);
-                targetPos = interpolate(newTargetposition.getAngleDeg() * 777.777, targetPos, Math.pow(accelFactor, dt));
-            } else {
-                if (turretX.get() > 2) {
-                     targetPos = 0;
-                }
-            }
-            Time = timer.get();
-            dt = Time - lastTime;
-            lastTime = Time;
-            turretSpin.set(ControlMode.Position, targetPos);
 
-            visionY = table.getEntry("ty").getDouble(0);
-            if (table.getEntry("ty").getDouble(0) > 10 && table.getEntry("ty").getDouble(0) < 12) {
-                turretY.start();
-                turretY.reset();
-                controllerShoot = 0.5;
-                // System.out.println(targetPos);
 
-            } else {
-                if (turretY.get() > 2) {
-                    controllerShoot = 0;
-                    turretY.stop();
-                }
-            }
-
-        }
+        
         if (degrees > 70000) {
             if (targetPos > 90) {
 
@@ -201,7 +203,7 @@ public class Shooter {
 
         // System.out.println(counter);
         bottomShoot.set(ControlMode.PercentOutput, ((controllerShoot / 100) * 60));
-        topShoot.set(ControlMode.PercentOutput, ((controllerShoot / 100) * 80));
+        topShoot.set(ControlMode.PercentOutput, ((controllerShoot / 100) * 40));
         // System.out.println(controllerShoot);
         SmartDashboard.putNumber("targetPos", targetPos);
         SmartDashboard.putNumber("sensorPos", sensorPos);

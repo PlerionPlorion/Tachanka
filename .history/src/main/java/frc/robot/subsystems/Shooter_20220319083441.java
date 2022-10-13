@@ -40,7 +40,6 @@ public class Shooter {
         Rick.addInstrument(bottomShoot);
         Rick.addInstrument(topShoot);
         turretY.reset();
-
         dt = 0;
         lastTime = 0;
         Time = 0;
@@ -53,7 +52,7 @@ public class Shooter {
 
     // Define
     double controllerTurn = 0;
-    double controllerShoot = 0;
+    public double controllerShoot = 0;
     double limelightTurn = 0;
     int counter = 1;
     double visionX = 0;
@@ -201,7 +200,7 @@ public class Shooter {
 
         // System.out.println(counter);
         bottomShoot.set(ControlMode.PercentOutput, ((controllerShoot / 100) * 60));
-        topShoot.set(ControlMode.PercentOutput, ((controllerShoot / 100) * 80));
+        topShoot.set(ControlMode.PercentOutput, ((controllerShoot / 100) * 40));
         // System.out.println(controllerShoot);
         SmartDashboard.putNumber("targetPos", targetPos);
         SmartDashboard.putNumber("sensorPos", sensorPos);
