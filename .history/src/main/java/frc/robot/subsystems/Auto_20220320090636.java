@@ -31,14 +31,13 @@ public void autonomousPeriodic() {
     //timer.reset();
   }
    if(timer.get() > 2.7) {
-    autoShooter.bottomShoot.set(ControlMode.PercentOutput, 0.4);
+    autoShooter.bottomShoot.set(ControlMode.PercentOutput, 0.45);
     autoShooter.topShoot.set(ControlMode.PercentOutput, 0.2);
-  } if (timer.get() > 5.0) {
+  } if (timer.get() > 4.0) {
     autoPickup.elevBag.set(ControlMode.PercentOutput, 1);
-  } if (timer.get() > 6) {
+  } if (timer.get() > 5) {
     autoShooter.bottomShoot.set(ControlMode.PercentOutput, 0.0);
     autoShooter.topShoot.set(ControlMode.PercentOutput, 0.0);
-    autoPickup.elevBag.set(ControlMode.PercentOutput, 0);
     timer.stop();
   }
 

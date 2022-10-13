@@ -40,7 +40,6 @@ public class Shooter {
         Rick.addInstrument(bottomShoot);
         Rick.addInstrument(topShoot);
         turretY.reset();
-
         dt = 0;
         lastTime = 0;
         Time = 0;
@@ -73,7 +72,7 @@ public class Shooter {
         double m = ((targetHeight - limeHeight) / Math.tan(limeAngle + ty) / 2);
         Vector targetRelLimelight = new Vector(tx, m, true);
         Vector targetRelTurret = targetRelLimelight.addVector(new Vector(limeRadius, 0));
-       // System.out.println(targetRelTurret.getAngle() - turretAngle);
+        System.out.println(targetRelTurret.getAngle() - turretAngle);
         return new Vector(targetRelTurret.getAngle() - turretAngle, targetRelTurret.getMag(), true);
     }
     public void shooterPeriodic() {
@@ -136,7 +135,7 @@ public class Shooter {
                 Vector newTargetposition = getTargetPosition();
                 // System.out.println(targetPosition);
                 // targetPos = (newTargetposition.getAngleDeg()) * 777.777;
-               // System.out.println(newTargetposition.getAngleDeg() * 777.777);
+                System.out.println(newTargetposition.getAngleDeg() * 777.777);
                 targetPos = interpolate(newTargetposition.getAngleDeg() * 777.777, targetPos, Math.pow(accelFactor, dt));
             } else {
                 if (turretX.get() > 2) {
@@ -201,7 +200,7 @@ public class Shooter {
 
         // System.out.println(counter);
         bottomShoot.set(ControlMode.PercentOutput, ((controllerShoot / 100) * 60));
-        topShoot.set(ControlMode.PercentOutput, ((controllerShoot / 100) * 80));
+        topShoot.set(ControlMode.PercentOutput, ((controllerShoot / 100) * 40));
         // System.out.println(controllerShoot);
         SmartDashboard.putNumber("targetPos", targetPos);
         SmartDashboard.putNumber("sensorPos", sensorPos);
